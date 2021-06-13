@@ -34,28 +34,28 @@ const pooSpeed = 20;
 
 // Defining Images
 const background = new Image();
-background.src = "penguin-background.png";
+background.src = "./images/penguin-background.png";
 
 const penguinDownImg = new Image();
-penguinDownImg.src = "penguin-penguin-down.png";
+penguinDownImg.src = "./images/penguin-penguin-down.png";
 
 const penguinUpImg = new Image();
-penguinUpImg.src = "penguin-penguin-up.png";
+penguinUpImg.src = "./images/penguin-penguin-up.png";
 
 const penguinPooDownImg = new Image();
-penguinPooDownImg.src = "penguin-penguin-poo-down.png";
+penguinPooDownImg.src = "./images/penguin-penguin-poo-down.png";
 
 const penguinPooUpImg = new Image();
-penguinPooUpImg.src = "penguin-penguin-poo-up.png";
+penguinPooUpImg.src = "./images/penguin-penguin-poo-up.png";
 
 const playerImg = new Image();
-playerImg.src = "penguin-player.png";
+playerImg.src = "./images/penguin-player.png";
 
 const poopUpImg = new Image();
-poopUpImg.src = "penguin-poop-up.png";
+poopUpImg.src = "./images/penguin-poop-up.png";
 
 const poopDownImg = new Image();
-poopDownImg.src = "penguin-poop-down.png";
+poopDownImg.src = "./images/penguin-poop-down.png";
 
 // Definig Variables
 let player1 = {

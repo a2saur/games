@@ -75,16 +75,16 @@ const geeseInterval = 200;
 
 //Defining things
 const gooseImg = new Image();
-gooseImg.src = "goose-goose.png";
+gooseImg.src = "./images/goose-goose.png";
 
 const gooseAngryImg = new Image();
-gooseAngryImg.src = "goose-angry-goose.png";
+gooseAngryImg.src = "./images/goose-angry-goose.png";
 
 const charImg = new Image();
-charImg.src = "goose-character.png";
+charImg.src = "./images/goose-character.png";
 
 const background = new Image();
-background.src = "goose-background.png";
+background.src = "./images/goose-background.png";
 
 let geese = [];
 let distance = 0;
