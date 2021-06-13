@@ -1,5 +1,8 @@
 header {
-    padding:3%;
+    padding-left:3%;
+    padding-right:3%;
+    padding-top:1%;
+    padding-bottom:1%;
     background-image:linear-gradient(to right, #00e0ff, #ff00d0);
     color:#000000;
     margin:0;
