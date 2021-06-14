@@ -1,3 +1,7 @@
+body {
+    margin:0;
+}
+
 header {
     padding-left:3%;
     padding-right:3%;
@@ -34,4 +38,31 @@ nav a {
 nav a:hover {
     background-color:#00ff00;
     color:#000000;
+}
+
+.dropdown {
+    background-color: #00e0ff;
+    text-align: center;
+    width:100%;
+    font-size:1.5vw;
+    position: relative;
+    display: inline-block;
+}
+  
+.dropdown-content {
+    display: none;
+    position: relative;
+    background-color: #ffffff;
+    color: #000000;
+    width:100vw;
+    padding: 12px 16px;
+    z-index: 1;
+}
+  
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.canvas {
+    text-align: center;
 }
