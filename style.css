@@ -2,6 +2,11 @@ body {
     margin:0;
 }
 
+p {
+    margin:1%;
+    font-size: 1.5vw;
+}
+
 header {
     padding-left:3%;
     padding-right:3%;
