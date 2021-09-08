@@ -18,45 +18,74 @@ charImg.src = root+"main-char.png";
 
 const water1Img = new Image();
 water1Img.src = root+"water-1.png";
-
 const water2Img = new Image();
 water2Img.src = root+"water-2.png";
-
 const water3Img = new Image();
 water3Img.src = root+"water-3.png";
 
 const grass1Img = new Image();
 grass1Img.src = root+"grass-1.png";
-
 const grass2Img = new Image();
 grass2Img.src = root+"grass-2.png";
-
 const grass3Img = new Image();
 grass3Img.src = root+"grass-3.png";
 
 const beach1Img = new Image();
 beach1Img.src = root+"beach-1.png";
-
 const beach2Img = new Image();
 beach2Img.src = root+"beach-2.png";
-
 const beach3Img = new Image();
 beach3Img.src = root+"beach-3.png";
 
 const mountain1Img = new Image();
 mountain1Img.src = root+"mountain-1.png";
-
 const mountain2Img = new Image();
 mountain2Img.src = root+"mountain-2.png";
-
 const mountain3Img = new Image();
 mountain3Img.src = root+"mountain-3.png";
 
+const town1Img = new Image();
+town1Img.src = root+"house-1.png";
+const town2Img = new Image();
+town2Img.src = root+"house-2.png";
+const town3Img = new Image();
+town3Img.src = root+"house-3.png";
+const town4Img = new Image();
+town4Img.src = root+"house-4.png";
+
+const exit1Img = new Image();
+exit1Img.src = root+"town-exit-1.png";
+const exit2Img = new Image();
+exit2Img.src = root+"town-exit-2.png";
+const exit3Img = new Image();
+exit3Img.src = root+"town-exit-3.png";
+const exit4Img = new Image();
+exit4Img.src = root+"town-exit-4.png";
+const exit5Img = new Image();
+exit5Img.src = root+"town-exit-5.png";
+const exit6Img = new Image();
+exit6Img.src = root+"town-exit-6.png";
+const exit7Img = new Image();
+exit7Img.src = root+"town-exit-7.png";
+
 const tomatoBunny1Img = new Image();
 tomatoBunny1Img.src = root+"tomato-bunny-1.png";
-
 const tomatoBunny2Img = new Image();
 tomatoBunny2Img.src = root+"tomato-bunny-2.png";
+
+const house1Img = new Image();
+house1Img.src = root+"house-version-1.png";
+const house2Img = new Image();
+house2Img.src = root+"house-version-2.png";
+const house3Img = new Image();
+house3Img.src = root+"house-version-3.png";
+const house4Img = new Image();
+house4Img.src = root+"house-version-4.png";
+const house5Img = new Image();
+house5Img.src = root+"house-version-4.png";
+
+const shopImg = new Image();
+shopImg.src = root+"shop.png";
 
 // Defining Constants
 const cBLOCK_WIDTH = 32;
@@ -88,12 +117,35 @@ const cMAP_NUM = [
     ["1", "2", "0", "1", "0", "1", "1", "0", "1", "2"],
 ]
 
-const cTOWN_LOCS = [
-    [0, 0], [6, 3], [10, 9]
+let town_locs = [
+    ["Banana", [0, 0], [
+        ["G", "T", "T", "T", "G", "G", "G", "G", "G", "G"],
+        ["G", "T", "T", "G", "G", "G", "G", "G", "G", "G"],
+        ["G", "T", "G", "G", "G", "G", "G", "G", "G", "G"],
+        ["G", "G", "G", "G", "G", "G", "G", "G", "G", "G"],
+        ["G", "G", "G", "H", "G", "G", "G", "G", "G", "G"],
+        ["G", "G", "G", "G", "G", "G", "H", "G", "G", "G"],
+        ["G", "H", "G", "G", "G", "S", "G", "G", "G", "G"],
+        ["G", "G", "G", "G", "G", "G", "G", "G", "G", "G"],
+        ["G", "G", "G", "G", "G", "G", "G", "G", "G", "G"],
+        ["G", "G", "G", "G", "X", "G", "G", "G", "G", "G"],
+    ], [
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    ]]
+
 ]
 
 const cCREATURE_INFO = {
-    "Tomato Bunny":[[tomatoBunny1Img, tomatoBunny1Img], 15, 0.1]
+    "Tomato Bunny":[[tomatoBunny1Img, tomatoBunny2Img], 10, 0.05]
 }
 
 const cSPAWNING_INFO = {
@@ -154,7 +206,16 @@ const cBLOCK_IMAGES = {
     "M":[mountain1Img, mountain2Img, mountain3Img],
     "G":[grass1Img, grass2Img, grass3Img],
     "B":[beach1Img, beach2Img, beach3Img],
-    "W":[water1Img, water2Img, water3Img],    
+    "W":[water1Img, water2Img, water3Img],
+}
+
+const cBLOCK_IMAGES_TOWNS = {
+    "G":[grass1Img, grass2Img, grass3Img],
+    "T":[beach1Img, beach2Img, beach3Img],
+    "W":[water1Img, water2Img, water3Img],
+    "X":[exit1Img, exit2Img, exit3Img, exit4Img, exit5Img, exit6Img, exit7Img],
+    "H":[house1Img, house2Img, house3Img, house4Img, house5Img],
+    "S":[shopImg]
 }
 
 // Defining Variables
@@ -162,6 +223,10 @@ let player = new Sprite([charImg], 0, 128, 128);
 let player_map_pos = {
     x:7,
     y:7
+}
+let player_town_pos = {
+    x:0,
+    y:0
 }
 let frames = 0;
 let background = new Array(81);
@@ -173,144 +238,265 @@ let movement = "";
 let creature_type;
 let temp_creature;
 let creatures_caught = [];
+let current_scene = "main";
+let temp_town;
+let current_town_idx;
+
+// add town sprites
+for (let i=0; i < town_locs.length; i++) {
+    // *** ADD TOWN NAME AS NOTES + WAYPOINTS
+    temp_town = new Sprite([town1Img, town2Img, town3Img, town4Img], 1, ((town_locs[i][1][0]+1)*32)-player.x, ((town_locs[i][1][1]+1)*32)-player.y, undefined, town_locs[i][0]);
+    town_locs[i].push(temp_town);
+}
 
 // Get Keys
 document.addEventListener("keydown", direction);
 
 function direction(event){
-    // alert(player_map_pos.y);
-    if (event.keyCode == 38){
-        //up
-        for (let i=0; i<showing_creatures.length; i++){
-            showing_creatures[i].move_down();
+    if (current_scene == "town"){
+        if (event.keyCode == 38){
+            //up
+            if (player_town_pos.y-1 >= 0){
+                player_town_pos.y--;
+            } else {
+                alert("YOU CANNOT PASS");
+            }
+        } else if (event.keyCode == 40){
+            //down
+            if (player_town_pos.y+1 < cMAP.length){
+                player_town_pos.y++;
+            } else {
+                alert("YOU CANNOT PASS");
+            }
+        } if (event.keyCode == 37){
+            //left
+            if (player_town_pos.x-1 >= 0){
+                player_town_pos.x--;
+            } else {
+                alert("YOU CANNOT PASS");
+            }
+        } else if (event.keyCode == 39){
+            //right
+            if (player_town_pos.x+1 < cMAP[0].length){
+                player_town_pos.x++;
+            } else {
+                alert("YOU CANNOT PASS");
+            }
         }
-        if (player_map_pos.y-1 >= 0){
-            player_map_pos.y--;
-            movement = "up";
-        } else {
-            alert("YOU CANNOT PASS");
-        }
-    } else if (event.keyCode == 40){
-        //down
-        for (let i=0; i<showing_creatures.length; i++){
-            showing_creatures[i].move_up();
-        }
-        if (player_map_pos.y+1 < cMAP.length){
-            player_map_pos.y++;
-            movement = "down";
-        } else {
-            alert("YOU CANNOT PASS");
-        }
-    } if (event.keyCode == 37){
-        //left
-        for (let i=0; i<showing_creatures.length; i++){
-            showing_creatures[i].move_right();
-        }
-        if (player_map_pos.x-1 >= 0){
-            player_map_pos.x--;
-            movement = "left";
-        } else {
-            alert("YOU CANNOT PASS");
-        }
-    } else if (event.keyCode == 39){
-        //right
-        for (let i=0; i<showing_creatures.length; i++){
-            showing_creatures[i].move_left();
-        }
-        if (player_map_pos.x+1 < cMAP[0].length){
-            player_map_pos.x++;
-            movement = "right";
-        } else {
-            alert("YOU CANNOT PASS");
+    } else if (current_scene == "main"){
+        if (event.keyCode == 38){
+            //up
+            if (player_map_pos.y-1 >= 0){
+                // move all
+                for (let i=0; i<showing_creatures.length; i++){
+                    showing_creatures[i].move_down();
+                }
+                for (let i=0; i<town_locs.length; i++){
+                    town_locs[i][4].move_down();
+                }
+                player_map_pos.y--;
+                movement = "up";
+            } else {
+                alert("YOU CANNOT PASS");
+            }
+        } else if (event.keyCode == 40){
+            //down
+            if (player_map_pos.y+1 < cMAP.length){
+                for (let i=0; i<showing_creatures.length; i++){
+                    showing_creatures[i].move_up();
+                }
+                for (let i=0; i<town_locs.length; i++){
+                    town_locs[i][4].move_up();
+                }
+                player_map_pos.y++;
+                movement = "down";
+            } else {
+                alert("YOU CANNOT PASS");
+            }
+        } if (event.keyCode == 37){
+            //left
+            if (player_map_pos.x-1 >= 0){
+                for (let i=0; i<showing_creatures.length; i++){
+                    showing_creatures[i].move_right();
+                }
+                for (let i=0; i<town_locs.length; i++){
+                    town_locs[i][4].move_right();
+                }
+                player_map_pos.x--;
+                movement = "left";
+            } else {
+                alert("YOU CANNOT PASS");
+            }
+        } else if (event.keyCode == 39){
+            //right
+            if (player_map_pos.x+1 < cMAP[0].length){
+                for (let i=0; i<showing_creatures.length; i++){
+                    showing_creatures[i].move_left();
+                }
+                for (let i=0; i<town_locs.length; i++){
+                    town_locs[i][4].move_left();
+                }
+                player_map_pos.x++;
+                movement = "right";
+            } else {
+                alert("YOU CANNOT PASS");
+            }
         }
     }
 }
 
 // Draw
 function draw(){
-    ctx.fillStyle = "#000"
+    ctx.fillStyle = "#000";
     ctx.fillRect(0, 0, 288, 288);
     
     frames++;
 
-    // draw background
-    counter = 0;
-    temp_y = 0;
-    for (let y = -4; y <= 4; y++){
-        temp_x = 0;
-        for (let x = -4; x <= 4; x++){
-            // document.write(temp_x, ", ", temp_y, " | ");
-            if (player_map_pos.y+y >= 0 && player_map_pos.x+x >= 0 && player_map_pos.y+y < cMAP.length && player_map_pos.x+x < cMAP[0].length){
-                background[counter] = new Sprite(cBLOCK_IMAGES[cMAP[player_map_pos.y+y][player_map_pos.x+x]], 0, temp_x, temp_y, parseInt(cMAP_NUM[player_map_pos.y+y][player_map_pos.x+x]));
-                background[counter].draw(frames);
-                // document.write("SUCCESS");
-                if (movement == "up" && y == -4){
-                    // spawn
-                    creature_type = random_choice(cSPAWNING_INFO[cMAP[player_map_pos.y+y][player_map_pos.x+x]]);
-                    if (Math.random() <= cCREATURE_INFO[creature_type][2]) {
-                        // spawned!
-                        temp_creature = new Sprite(cCREATURE_INFO[creature_type][0], cCREATURE_INFO[creature_type][1], temp_x, temp_y, 0, creature_type);
-                        showing_creatures.push(temp_creature);
-                    }
-                } else if (movement == "down" && y == 4){
-                    // spawn
-                    creature_type = random_choice(cSPAWNING_INFO[cMAP[player_map_pos.y+y][player_map_pos.x+x]]);
-                    if (Math.random() <= cCREATURE_INFO[creature_type][2]) {
-                        // spawned!
-                        temp_creature = new Sprite(cCREATURE_INFO[creature_type][0], cCREATURE_INFO[creature_type][1], temp_x, temp_y, 0, creature_type);
-                        showing_creatures.push(temp_creature);
-                    }
-                } else if (movement == "right" && x == 4){
-                    // spawn
-                    creature_type = random_choice(cSPAWNING_INFO[cMAP[player_map_pos.y+y][player_map_pos.x+x]]);
-                    if (Math.random() <= cCREATURE_INFO[creature_type][2]) {
-                        // spawned!
-                        temp_creature = new Sprite(cCREATURE_INFO[creature_type][0], cCREATURE_INFO[creature_type][1], temp_x, temp_y, 0, creature_type);
-                        showing_creatures.push(temp_creature);
-                    }
-                } else if (movement == "left" && x == -4){
-                    // spawn
-                    creature_type = random_choice(cSPAWNING_INFO[cMAP[player_map_pos.y+y][player_map_pos.x+x]]);
-                    if (Math.random() <= cCREATURE_INFO[creature_type][2]) {
-                        // spawned!
-                        temp_creature = new Sprite(cCREATURE_INFO[creature_type][0], cCREATURE_INFO[creature_type][1], temp_x, temp_y, 0, creature_type);
-                        showing_creatures.push(temp_creature);
+    if (current_scene == "town"){
+        // draw background
+        counter = 0;
+        temp_y = 0;
+        for (let y = -4; y <= 4; y++){
+            temp_x = 0;
+            for (let x = -4; x <= 4; x++){
+                if (player_town_pos.y+y >= 0 && player_town_pos.x+x >= 0 && player_town_pos.y+y < town_locs[current_town_idx][2].length && player_town_pos.x+x < town_locs[current_town_idx][2][0].length){
+                    background[counter] = new Sprite(cBLOCK_IMAGES_TOWNS[town_locs[current_town_idx][2][player_town_pos.y+y][player_town_pos.x+x]], 0, temp_x, temp_y, town_locs[current_town_idx][3][player_town_pos.y+y][player_town_pos.x+x]);
+                    background[counter].draw(frames);
+                }
+                counter++;
+                temp_x += cBLOCK_WIDTH;
+            }
+            temp_y += cBLOCK_HEIGHT;
+        }
+
+        player.draw(frames);
+
+        ctx.fillStyle = "#eef"
+        ctx.fillRect(0, 288, 288, 320);
+
+        // add text
+        ctx.font = "15px Arial";
+        ctx.fillStyle = "#000"
+        ctx.fillText("Town: "+town_locs[current_town_idx][0], 10, 310);
+
+        ctx.font = "15px Arial";
+        ctx.fillStyle = "#000"
+        ctx.fillText("# of Items: "+creatures_caught.length.toString(), 150, 310);
+
+        // update exit animation
+        if (town_locs[current_town_idx][3][9][4] >= 6){
+            town_locs[current_town_idx][3][9][4] = 0;
+        } else {
+            town_locs[current_town_idx][3][9][4]++;
+        }
+
+        // check if leaving
+        if (player_town_pos.x == 4 && player_town_pos.y == 9){
+            current_scene = "main";
+            // move down
+            if (player_map_pos.y+1 < cMAP.length){
+                for (let i=0; i<showing_creatures.length; i++){
+                    showing_creatures[i].move_up();
+                }
+                for (let i=0; i<town_locs.length; i++){
+                    town_locs[i][4].move_up();
+                }
+                player_map_pos.y++;
+                movement = "down";
+            } else {
+                alert("YOU CANNOT PASS");
+            }
+        }
+    } else if (current_scene == "main"){
+        // draw background
+        counter = 0;
+        temp_y = 0;
+        for (let y = -4; y <= 4; y++){
+            temp_x = 0;
+            for (let x = -4; x <= 4; x++){
+                if (player_map_pos.y+y >= 0 && player_map_pos.x+x >= 0 && player_map_pos.y+y < cMAP.length && player_map_pos.x+x < cMAP[0].length){
+                    background[counter] = new Sprite(cBLOCK_IMAGES[cMAP[player_map_pos.y+y][player_map_pos.x+x]], 0, temp_x, temp_y, parseInt(cMAP_NUM[player_map_pos.y+y][player_map_pos.x+x]));
+                    background[counter].draw(frames);
+                    if (movement == "up" && y == -4){
+                        // spawn
+                        creature_type = random_choice(cSPAWNING_INFO[cMAP[player_map_pos.y+y][player_map_pos.x+x]]);
+                        if (Math.random() <= cCREATURE_INFO[creature_type][2]) {
+                            // spawned!
+                            temp_creature = new Sprite(cCREATURE_INFO[creature_type][0], cCREATURE_INFO[creature_type][1], temp_x, temp_y, undefined, creature_type);
+                            showing_creatures.push(temp_creature);
+                        }
+                    } else if (movement == "down" && y == 4){
+                        // spawn
+                        creature_type = random_choice(cSPAWNING_INFO[cMAP[player_map_pos.y+y][player_map_pos.x+x]]);
+                        if (Math.random() <= cCREATURE_INFO[creature_type][2]) {
+                            // spawned!
+                            temp_creature = new Sprite(cCREATURE_INFO[creature_type][0], cCREATURE_INFO[creature_type][1], temp_x, temp_y, undefined, creature_type);
+                            showing_creatures.push(temp_creature);
+                        }
+                    } else if (movement == "right" && x == 4){
+                        // spawn
+                        creature_type = random_choice(cSPAWNING_INFO[cMAP[player_map_pos.y+y][player_map_pos.x+x]]);
+                        if (Math.random() <= cCREATURE_INFO[creature_type][2]) {
+                            // spawned!
+                            temp_creature = new Sprite(cCREATURE_INFO[creature_type][0], cCREATURE_INFO[creature_type][1], temp_x, temp_y, undefined, creature_type);
+                            showing_creatures.push(temp_creature);
+                        }
+                    } else if (movement == "left" && x == -4){
+                        // spawn
+                        creature_type = random_choice(cSPAWNING_INFO[cMAP[player_map_pos.y+y][player_map_pos.x+x]]);
+                        if (Math.random() <= cCREATURE_INFO[creature_type][2]) {
+                            // spawned!
+                            temp_creature = new Sprite(cCREATURE_INFO[creature_type][0], cCREATURE_INFO[creature_type][1], temp_x, temp_y, undefined, creature_type);
+                            showing_creatures.push(temp_creature);
+                        }
                     }
                 }
+                counter++;
+                temp_x += cBLOCK_WIDTH;
             }
-            counter++;
-            temp_x += cBLOCK_WIDTH;
+            // document.write(y);
+            temp_y += cBLOCK_HEIGHT;
         }
-        // document.write(y);
-        temp_y += cBLOCK_HEIGHT;
-    }
-    movement = "";
+        movement = "";
 
-    to_remove = [];
-    for (let i=0; i < showing_creatures.length; i++){
-        showing_creatures[i].draw(frames);
-        if (showing_creatures[i].x == player.x && showing_creatures[i].y == player.y) {
-            // caught
-            creatures_caught.push(showing_creatures[i].notes);
-            showing_creatures.splice(i, 1);
+        // draw and check towns
+        for (let i=0; i < town_locs.length; i++) {
+            town_locs[i][4].draw(frames);
+            if (town_locs[i][4].x == player.x && town_locs[i][4].y == player.y) {
+                current_town_idx = i;
+                current_scene = "town";
+                player_town_pos = {
+                    x:5,
+                    y:8
+                }
+                
+            }
         }
-    }
-    // *** CHECK DESPAWN
-    // *** CHECK IF CAUGHT
-    player.draw(frames);
 
-    ctx.fillStyle = "#eef"
-    ctx.fillRect(0, 288, 288, 320);
+        // draw and check creatures
+        to_remove = [];
+        for (let i=0; i < showing_creatures.length; i++){
+            showing_creatures[i].draw(frames);
+            if (showing_creatures[i].x == player.x && showing_creatures[i].y == player.y) {
+                // caught
+                creatures_caught.push(showing_creatures[i].notes);
+                showing_creatures.splice(i, 1);
+            }
+        }
+        player.draw(frames);
 
-    // add text
-    ctx.font = "15px Arial";
-    ctx.fillStyle = "#000"
-    ctx.fillText("Coordinates: ("+player_map_pos.x.toString()+", "+player_map_pos.y.toString()+")", 10, 310);
+        ctx.fillStyle = "#eef"
+        ctx.fillRect(0, 288, 288, 320);
 
-    ctx.font = "15px Arial";
-    ctx.fillStyle = "#000"
-    ctx.fillText("# of Items: "+creatures_caught.length.toString(), 150, 310);
-    
+        // add text
+        ctx.font = "15px Arial";
+        ctx.fillStyle = "#000"
+        ctx.fillText("Coordinates: ("+player_map_pos.x.toString()+", "+player_map_pos.y.toString()+")", 10, 310);
+
+        ctx.font = "15px Arial";
+        ctx.fillStyle = "#000"
+        ctx.fillText("# of Items: "+creatures_caught.length.toString(), 150, 310);
+    }    
 }
 
 let game = setInterval(draw, 100);
