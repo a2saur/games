@@ -134,13 +134,13 @@ let town_locs = [
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 2, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 1, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    ]]
+    ], ["swan", "swan", "swan"], false]
 
 ]
 
@@ -292,7 +292,7 @@ function direction(event){
                     showing_creatures[i].move_down();
                 }
                 for (let i=0; i<town_locs.length; i++){
-                    town_locs[i][4].move_down();
+                    town_locs[i][6].move_down();
                 }
                 player_map_pos.y--;
                 movement = "up";
@@ -306,7 +306,7 @@ function direction(event){
                     showing_creatures[i].move_up();
                 }
                 for (let i=0; i<town_locs.length; i++){
-                    town_locs[i][4].move_up();
+                    town_locs[i][6].move_up();
                 }
                 player_map_pos.y++;
                 movement = "down";
@@ -320,7 +320,7 @@ function direction(event){
                     showing_creatures[i].move_right();
                 }
                 for (let i=0; i<town_locs.length; i++){
-                    town_locs[i][4].move_right();
+                    town_locs[i][6].move_right();
                 }
                 player_map_pos.x--;
                 movement = "left";
@@ -334,7 +334,7 @@ function direction(event){
                     showing_creatures[i].move_left();
                 }
                 for (let i=0; i<town_locs.length; i++){
-                    town_locs[i][4].move_left();
+                    town_locs[i][6].move_left();
                 }
                 player_map_pos.x++;
                 movement = "right";
@@ -399,7 +399,7 @@ function draw(){
                     showing_creatures[i].move_up();
                 }
                 for (let i=0; i<town_locs.length; i++){
-                    town_locs[i][4].move_up();
+                    town_locs[i][6].move_up();
                 }
                 player_map_pos.y++;
                 movement = "down";
@@ -461,8 +461,8 @@ function draw(){
 
         // draw and check towns
         for (let i=0; i < town_locs.length; i++) {
-            town_locs[i][4].draw(frames);
-            if (town_locs[i][4].x == player.x && town_locs[i][4].y == player.y) {
+            town_locs[i][6].draw(frames);
+            if (town_locs[i][6].x == player.x && town_locs[i][6].y == player.y) {
                 current_town_idx = i;
                 current_scene = "town";
                 player_town_pos = {
