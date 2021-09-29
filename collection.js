@@ -10,6 +10,10 @@ function random_choice(list){
     return list[Math.floor(Math.random()*list.length)];
 }
 
+function random_idx(list){
+    return Math.floor(Math.random()*list.length);
+}
+
 // Defining Images
 const root = "./Images/collection-"
 
@@ -68,11 +72,6 @@ exit6Img.src = root+"town-exit-6.png";
 const exit7Img = new Image();
 exit7Img.src = root+"town-exit-7.png";
 
-const tomatoBunny1Img = new Image();
-tomatoBunny1Img.src = root+"tomato-bunny-1.png";
-const tomatoBunny2Img = new Image();
-tomatoBunny2Img.src = root+"tomato-bunny-2.png";
-
 const house1Img = new Image();
 house1Img.src = root+"house-version-1.png";
 const house2Img = new Image();
@@ -87,10 +86,40 @@ house5Img.src = root+"house-version-4.png";
 const shopImg = new Image();
 shopImg.src = root+"shop.png";
 
-// Defining Constants
-const cBLOCK_WIDTH = 32;
-const cBLOCK_HEIGHT = 32;
+const inHouseImg = new Image();
+inHouseImg.src = root+"in-house.png";
 
+// *****
+
+const tomatoBunny1Img = new Image();
+tomatoBunny1Img.src = root+"tomato-bunny-1.png";
+const tomatoBunny2Img = new Image();
+tomatoBunny2Img.src = root+"tomato-bunny-2.png";
+
+const swan1Img = new Image();
+swan1Img.src = root+"swan-1.png";
+const swan2Img = new Image();
+swan2Img.src = root+"swan-2.png";
+const swan3Img = new Image();
+swan3Img.src = root+"swan-3.png";
+const swan4Img = new Image();
+swan4Img.src = root+"swan-4.png";
+const swan5Img = new Image();
+swan5Img.src = root+"swan-5.png";
+const swan6Img = new Image();
+swan6Img.src = root+"swan-6.png";
+const swan7Img = new Image();
+swan7Img.src = root+"swan-7.png";
+const swan8Img = new Image();
+swan8Img.src = root+"swan-8.png";
+const swan9Img = new Image();
+swan9Img.src = root+"swan-9.png";
+const swan10Img = new Image();
+swan10Img.src = root+"swan-10.png";
+const swanSpeechImg = new Image();
+swanSpeechImg.src = root+"swan-speech.png";
+
+// Defining Constants
 const cMAP = [
     ["G", "G", "G", "G", "G", "G", "G", "G", "G", "G"],
     ["G", "G", "G", "G", "G", "G", "G", "G", "G", "G"],
@@ -124,8 +153,8 @@ let town_locs = [
         ["G", "T", "G", "G", "G", "G", "G", "G", "G", "G"],
         ["G", "G", "G", "G", "G", "G", "G", "G", "G", "G"],
         ["G", "G", "G", "H", "G", "G", "G", "G", "G", "G"],
-        ["G", "G", "G", "G", "G", "G", "H", "G", "G", "G"],
-        ["G", "H", "G", "G", "G", "S", "G", "G", "G", "G"],
+        ["G", "G", "G", "G", "G", "G", "G", "G", "G", "G"],
+        ["G", "H", "G", "G", "G", "S", "H", "G", "G", "G"],
         ["G", "G", "G", "G", "G", "G", "G", "G", "G", "G"],
         ["G", "G", "G", "G", "G", "G", "G", "G", "G", "G"],
         ["G", "G", "G", "G", "X", "G", "G", "G", "G", "G"],
@@ -135,17 +164,23 @@ let town_locs = [
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         [0, 0, 0, 2, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 1, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    ], ["swan", "swan", "swan"], false]
+    ], [
+        ["swan", [4, 3]], ["swan", [6, 1]], ["swan", [6, 6]]
+    ], false]
 
 ]
 
 const cCREATURE_INFO = {
     "Tomato Bunny":[[tomatoBunny1Img, tomatoBunny2Img], 10, 0.05]
+}
+
+const cPERSON_INFO = {
+    "swan":[[swan1Img, swan2Img, swan3Img, swan4Img, swan5Img, swan6Img, swan7Img, swan8Img, swan9Img, swan10Img], 1, swanSpeechImg, [["Swish, swish", "Hmm... needs more cleaning"], ["Why do I sweep so much?", "It's satisfying"]]]
 }
 
 const cSPAWNING_INFO = {
@@ -154,6 +189,11 @@ const cSPAWNING_INFO = {
     "B":["Tomato Bunny"],
     "W":["Tomato Bunny"],
 }
+
+// *****
+
+const cBLOCK_WIDTH = 32;
+const cBLOCK_HEIGHT = 32;
 
 class Sprite {
     constructor(images, frame_wait, x, y, frame_start=-1, notes=""){
@@ -200,6 +240,37 @@ class Sprite {
     }
 }
 
+class Speech {
+    constructor(image, all_lines, name="???") {
+        this.image = image;
+        this.all_lines = all_lines;
+        this.lines_set_idx = 0
+        this.current_line_idx = -1;
+        this.name = name;
+    }
+
+    update(){
+        if (this.current_line_idx >= 0) {
+            ctx.drawImage(this.image, 10, 10);
+            ctx.font = "15px Arial";
+            ctx.fillStyle = "#fff"
+            ctx.fillText(this.name, 70, 25)
+            ctx.fillText(this.all_lines[this.lines_set_idx][this.current_line_idx], 70, 45);
+        }
+    }
+
+    next_line(){
+        if (this.current_line_idx == -1) {
+            this.lines_set_idx = random_idx(this.all_lines)
+        }
+
+        this.current_line_idx++;
+        if (this.current_line_idx >= this.all_lines[this.lines_set_idx].length){
+            this.current_line_idx = -1
+        }
+    }
+}
+
 
 
 const cBLOCK_IMAGES = {
@@ -241,6 +312,7 @@ let creatures_caught = [];
 let current_scene = "main";
 let temp_town;
 let current_town_idx;
+let current_person;
 
 // add town sprites
 for (let i=0; i < town_locs.length; i++) {
@@ -281,6 +353,51 @@ function direction(event){
                 player_town_pos.x++;
             } else {
                 alert("YOU CANNOT PASS");
+            }
+        }
+    } else if (current_scene == "house"){
+        if (event.keyCode == 38){
+            //up
+            if (player_house.y-32 == 0 && player_house.x == 128){
+                //
+            } else if (player_house.y-32 >= 0){
+                player_house.y -= 32;
+            } else {
+                //
+            }
+        } else if (event.keyCode == 40){
+            //down
+            if (player_house.y+32 == 0 && player_house.x == 128){
+                //
+            } else if (player_house.y+32 < 256){
+                player_house.y += 32;
+            } else {
+                // leave
+                current_scene = "town";
+                player_town_pos.y++;
+            }
+        } if (event.keyCode == 37){
+            //left
+            if (player_house.y == 0 && player_house.x-32 == 128){
+                //
+            } else if (player_house.x-32 >= 0){
+                player_house.x -= 32;
+            } else {
+                //
+            }
+        } else if (event.keyCode == 39){
+            //right
+            if (player_house.y == 0 && player_house.x+32 == 128){
+                //
+            } else if (player_house.x+32 < 288){
+                player_house.x += 32;
+            } else {
+                //
+            }
+        } else if (event.keyCode == 32){
+            //talk
+            if (player_house.x == 128 && player_house.y == 32){
+                house_speech.next_line();
             }
         }
     } else if (current_scene == "main"){
@@ -389,6 +506,16 @@ function draw(){
         } else {
             town_locs[current_town_idx][3][9][4]++;
         }
+        // check if going into house
+        for (let i=0; i < town_locs[current_town_idx][4].length; i++){
+            if (player_town_pos.x == town_locs[current_town_idx][4][i][1][1] && player_town_pos.y == town_locs[current_town_idx][4][i][1][0]){
+                current_scene = "house";
+                current_person = town_locs[current_town_idx][4][i][0];
+                person_sprite = new Sprite(cPERSON_INFO[current_person][0], cPERSON_INFO[current_person][1], 128, 0)
+                player_house = new Sprite([charImg], 0, 128, 224);
+                house_speech = new Speech(cPERSON_INFO[current_person][2], cPERSON_INFO[current_person][3], current_person)
+            }
+        }
 
         // check if leaving
         if (player_town_pos.x == 4 && player_town_pos.y == 9){
@@ -407,6 +534,12 @@ function draw(){
                 alert("YOU CANNOT PASS");
             }
         }
+    } else if (current_scene == "house"){
+        //current_person
+        ctx.drawImage(inHouseImg, 0, 0);
+        person_sprite.draw(frames);
+        player_house.draw(frames);
+        house_speech.update();
     } else if (current_scene == "main"){
         // draw background
         counter = 0;
@@ -467,7 +600,7 @@ function draw(){
                 current_scene = "town";
                 player_town_pos = {
                     x:5,
-                    y:8
+                    y:9
                 }
                 
             }
@@ -496,7 +629,7 @@ function draw(){
         ctx.font = "15px Arial";
         ctx.fillStyle = "#000"
         ctx.fillText("# of Items: "+creatures_caught.length.toString(), 150, 310);
-    }    
+    }
 }
 
 let game = setInterval(draw, 100);
