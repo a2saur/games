@@ -81,7 +81,7 @@ house3Img.src = root+"house-version-3.png";
 const house4Img = new Image();
 house4Img.src = root+"house-version-4.png";
 const house5Img = new Image();
-house5Img.src = root+"house-version-4.png";
+house5Img.src = root+"house-version-5.png";
 
 const shopImg = new Image();
 shopImg.src = root+"shop.png";
@@ -118,6 +118,25 @@ const swan10Img = new Image();
 swan10Img.src = root+"swan-10.png";
 const swanSpeechImg = new Image();
 swanSpeechImg.src = root+"swan-speech.png";
+
+const gardora1Img = new Image();
+gardora1Img.src = root+"gardora-1.png";
+const gardora2Img = new Image();
+gardora2Img.src = root+"gardora-2.png";
+const gardora3Img = new Image();
+gardora3Img.src = root+"gardora-3.png";
+const gardora4Img = new Image();
+gardora4Img.src = root+"gardora-4.png";
+const gardora5Img = new Image();
+gardora5Img.src = root+"gardora-5.png";
+const gardora6Img = new Image();
+gardora6Img.src = root+"gardora-6.png";
+const gardora7Img = new Image();
+gardora7Img.src = root+"gardora-7.png";
+const gardora8Img = new Image();
+gardora8Img.src = root+"gardora-8.png";
+const gardoraSpeechImg = new Image();
+gardoraSpeechImg.src = root+"gardora-speech.png";
 
 // Defining Constants
 const cMAP = [
@@ -170,9 +189,8 @@ let town_locs = [
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     ], [
-        ["swan", [4, 3]], ["swan", [6, 1]], ["swan", [6, 6]]
+        ["Swan", [4, 3]], ["Gardora", [6, 1]], ["Swan", [6, 6]]
     ], false]
-
 ]
 
 const cCREATURE_INFO = {
@@ -180,7 +198,8 @@ const cCREATURE_INFO = {
 }
 
 const cPERSON_INFO = {
-    "swan":[[swan1Img, swan2Img, swan3Img, swan4Img, swan5Img, swan6Img, swan7Img, swan8Img, swan9Img, swan10Img], 1, swanSpeechImg, [["Swish, swish", "Hmm... needs more cleaning"], ["Why do I sweep so much?", "It's satisfying"]]]
+    "Swan":[[swan1Img, swan2Img, swan3Img, swan4Img, swan5Img, swan6Img, swan7Img, swan8Img, swan9Img, swan10Img], 1, swanSpeechImg, [["Swish, swish", "Hmm... needs more cleaning"], ["Why do I sweep so much?", "It's satisfying"]]],
+    "Gardora":[[gardora1Img,gardora2Img,gardora3Img,gardora4Img,gardora5Img,gardora6Img,gardora7Img,gardora8Img,],1,gardoraSpeechImg,[['♩♫♩'], ['I heard plants like music', "I can't play any instruments...", 'So I hum to them instead'], ['Plants are very cute!'], ['This plant is named Beepo', 'I love them♡'], ['I have a room full of plants!', "It's a little unorganized..."], ['My favorite creature?\\Any plant creature!', 'Hmm... if I really had to choose...', 'Maybe the flower bunny!', "They're so cute!"], ['My favorite drink?', 'Tea!', 'There are so many different flavors!']]],
 }
 
 const cSPAWNING_INFO = {
@@ -281,8 +300,9 @@ const cBLOCK_IMAGES = {
 }
 
 const cBLOCK_IMAGES_TOWNS = {
+    "M":[mountain1Img, mountain2Img, mountain3Img],
     "G":[grass1Img, grass2Img, grass3Img],
-    "T":[beach1Img, beach2Img, beach3Img],
+    "B":[beach1Img, beach2Img, beach3Img],
     "W":[water1Img, water2Img, water3Img],
     "X":[exit1Img, exit2Img, exit3Img, exit4Img, exit5Img, exit6Img, exit7Img],
     "H":[house1Img, house2Img, house3Img, house4Img, house5Img],
@@ -498,7 +518,7 @@ function draw(){
 
         ctx.font = "15px Arial";
         ctx.fillStyle = "#000"
-        ctx.fillText("# of Items: "+creatures_caught.length.toString(), 150, 310);
+        ctx.fillText("# of Items: "+creatures_caught.length.toString(), 160, 310);
 
         // update exit animation
         if (town_locs[current_town_idx][3][9][4] >= 6){
