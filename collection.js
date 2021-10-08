@@ -139,7 +139,7 @@ const gardoraSpeechImg = new Image();
 gardoraSpeechImg.src = root+"gardora-speech.png";
 
 // Defining Constants
-const cMAP = [
+[
     ["G", "G", "G", "G", "G", "G", "G", "G", "G", "G"],
     ["G", "G", "G", "G", "G", "G", "G", "G", "G", "G"],
     ["G", "G", "G", "G", "G", "G", "G", "G", "G", "G"],
@@ -355,7 +355,7 @@ function direction(event){
             }
         } else if (event.keyCode == 40){
             //down
-            if (player_town_pos.y+1 < cMAP.length){
+            if (player_town_pos.y+1 < town_locs[current_town_idx][2].length){
                 player_town_pos.y++;
             } else {
                 alert("YOU CANNOT PASS");
@@ -369,7 +369,7 @@ function direction(event){
             }
         } else if (event.keyCode == 39){
             //right
-            if (player_town_pos.x+1 < cMAP[0].length){
+            if (player_town_pos.x+1 < town_locs[current_town_idx][2][0].length){
                 player_town_pos.x++;
             } else {
                 alert("YOU CANNOT PASS");

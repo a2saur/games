@@ -3,12 +3,12 @@ import numpy as np
 import matplotlib.pyplot as plt
 import random
 
-cWIDTH = 100
-cHEIGHT = 100
+cWIDTH = 150
+cHEIGHT = 150
 cSEEDS = 5
 cSHIFT = 1
 cSINK = 1.5
-cNUM_TOWNS = 2#10
+cNUM_TOWNS = 10
 
 def random_up_down(options, probability_sep):
   x = random.randrange(100)
@@ -295,13 +295,13 @@ town_setups = [[
 ], [
     ["G", "G", "G", "G", "G", "G", "G", "G", "G", "G"],
     ["G", "G", "G", "G", "G", "S", "G", "G", "G", "G"],
-    ["G", "H", "G", "G", "G", "G", "G", "H", "G", "G"],
+    ["G", "H", "G", "G", "G", "G", "G", "G", "H", "G"],
     ["G", "G", "G", "G", "B", "B", "G", "G", "G", "G"],
-    ["G", "H", "G", "B", "W", "W", "B", "H", "G", "G"],
+    ["G", "H", "G", "B", "W", "W", "B", "G", "H", "G"],
     ["G", "G", "G", "B", "W", "W", "B", "G", "G", "G"],
-    ["G", "H", "G", "G", "B", "B", "G", "H", "G", "G"],
+    ["G", "H", "G", "G", "B", "B", "G", "G", "H", "G"],
     ["G", "G", "G", "G", "G", "G", "G", "G", "G", "G"],
-    ["G", "H", "G", "G", "G", "G", "G", "H", "G", "G"],
+    ["G", "H", "G", "G", "G", "G", "G", "G", "H", "G"],
     ["G", "G", "G", "G", "X", "G", "G", "G", "G", "G"],
 ]]
 
