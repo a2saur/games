@@ -5,11 +5,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="style.css" rel="stylesheet" type="text/css" />
-    <title>Adventure</title>
+    <title>Ghost Walking</title>
 </head>
     <body>
         <header>
-            <h1>Adventure</h1>
+            <h1>Ghost Walking</h1>
         </header>
 
         <nav>
@@ -17,19 +17,22 @@
             <a href="geese.html">Field of Geese</a>
             <a href="collection.html">Collection Game</a>
             <a href="penguin.html">Penguin Poopers</a>
-            <a href="ghost-walking.html">Ghost Walking</a>
+            <a href="platformer.html">Platformer</a>
             <a href="https://a2saur.github.io/about_me/">About The Creator</a>
         </nav>
         
         <div class="dropdown">
             Instructions (Drop down)
             <div class="dropdown-content">
-                NOT COMPLETE
+                Use the arrow keys to move around the screen.<br>
+                There is no goal, just enjoy!
             </div>
         </div>
         <br>
 
-        <script src="https://unpkg.com/kaboom@next/dist/kaboom.js"></script>
-        <script src="platformer.js"></script>
+        <div class="canvas">
+            <canvas id="game" width="800" height="500" style="background-color: #0000ff;"></canvas>
+        </div>
+        <script src="gravity.js"></script>
     </body>
 </html>
