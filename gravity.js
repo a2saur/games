@@ -4,6 +4,13 @@ const ctx = cvs.getContext("2d");
 
 const cGRAVITY = 3;
 
+function plus_reverse(list){
+    for (let x=list.length-1; x >= 0; x--){
+        list.push(list[x])
+    }
+    return list
+}
+
 // CLASSES
 class Sprite {
     constructor (x, y, width, height, root, animation_info, gravity_affected=false, solid=true, friction=0) {
@@ -40,9 +47,9 @@ class Sprite {
         let repeat = this.animation_info[animation][2];
 
         this.currentImg.src = this.root+animation+"-"+this.current_frame.toString()+".png";
-        ctx.strokeStyle = '#00f';
-        ctx.lineWidth = 5;
-        ctx.strokeRect(this.pos.x+baseX, this.pos.y+baseY, this.width, this.height);
+        // ctx.strokeStyle = '#00f';
+        // ctx.lineWidth = 5;
+        // ctx.strokeRect(this.pos.x+baseX, this.pos.y+baseY, this.width, this.height);
         ctx.drawImage(this.currentImg, this.pos.x+baseX, this.pos.y+baseY);
         
         if (reverse){
@@ -139,8 +146,8 @@ class Sprite {
             }
         }
 
-        if (this.velocity.vX > 25){
-            this.velocity.vX = 25;
+        if (this.velocity.vX > 10){
+            this.velocity.vX = 10;
         }
     }
 
@@ -212,6 +219,9 @@ document.addEventListener("keydown", function(event){
         // char.move(10, 0);
         // char.pos.x += 25;
         walk = "r";
+    } if (event.keyCode == 13){
+        clearInterval(opening);
+        let game = setInterval(draw, 100);
     }
 });
 
@@ -283,6 +293,19 @@ let dir_ref = {
     "r":[5, 0],
     "":[0, 0]
 }
+let colors = plus_reverse(["#FFF", "#EEE", "#CCC", "#AAB", "#88A", "#669", "#448", "#226", "#005",]);
+// document.write(colors)
+
+function start(){
+    frames++;
+
+    ctx.fillStyle = "#005";
+    ctx.fillRect(0, 0, 800, 500);
+
+    ctx.font = "30px Arial";
+    ctx.fillStyle = colors[frames%colors.length];
+    ctx.fillText("-Press enter to start-", 275, 250);
+}
 
 // Draw
 function draw(){
@@ -305,9 +328,9 @@ function draw(){
         block_map[x].update(frames, "default", false, [], baseX=offsetX, baseY=offsetY);
     }
 
-    ctx.font = "30px Arial";
-    ctx.fillStyle = "#000";
-    ctx.fillText(char.pos.x.toString()+", "+char.pos.y.toString(), 200, 300);
+    // ctx.font = "30px Arial";
+    // ctx.fillStyle = "#000";
+    // ctx.fillText(char.pos.x.toString()+", "+char.pos.y.toString(), 200, 300);
 
     char.move(dir_ref[walk][0], dir_ref[walk][1]);
     // char2.update(frames, "idle");
@@ -317,4 +340,5 @@ function draw(){
     // }
 }
 
-let game = setInterval(draw, 100);
+let opening = setInterval(start, 100);
+// let game = setInterval(draw, 100);
