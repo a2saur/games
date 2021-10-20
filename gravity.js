@@ -85,35 +85,54 @@ class Sprite {
         this.grounded = false;
         //      check collision
         for (let x = 0; x < solid_items.length; x++){
-            // if (solid_items[x].pos.x < this.pos.x &&
-            //     solid_items[x].pos.x + solid_items[x].width > this.pos.x &&
-            //     solid_items[x].pos.y < this.pos.y+this.velocity.vY+this.height &&
-            //     solid_items[x].height + solid_items[x].pos.y > this.pos.y+this.height) {
-            // if (solid_items[x].pos.y < this.pos.y &&
-            //     solid_items[x].pos.y + solid_items[x].height > this.pos.y &&
-            //     solid_items[x].pos.x < this.pos.x+this.velocity.vX+this.width &&
-            //     solid_items[x].height + solid_items[x].pos.x > this.pos.x+this.width) {
-            if (solid_items[x].collides_with({pos:{x:this.pos.x, y:this.pos.y}, width:this.velocity.vX+this.width, height:this.height})){
-                // collision detected!
-                goX = false;
-                if (solid_items[x].pos.x > this.pos.x){
+            if (this.velocity.vX > 0){
+                if (solid_items[x].collides_with({pos:{x:this.pos.x, y:this.pos.y}, width:this.velocity.vX+this.width, height:this.height})){
+                    // collision detected!
+                    goX = false;
+                    // right
                     temp_x = solid_items[x].pos.x-this.width;
-                } else {
+                }
+            } else if (this.velocity.vX < 0){
+                if (solid_items[x].collides_with({pos:{x:this.pos.x+(this.velocity.vX), y:this.pos.y}, width:Math.abs(this.velocity.vX), height:this.height})){
+                    // collision detected!
+                    goX = false;
+                    // right
                     temp_x = solid_items[x].pos.x+solid_items[x].width;
                 }
             }
-            if (solid_items[x].collides_with({pos:{x:this.pos.x, y:this.pos.y}, width:this.width, height:this.velocity.vY+this.height})){
-                // collision detected!
-                goY = false;
-                if (solid_items[x].pos.y > this.pos.y){
-                    // up
+
+            //vertical
+
+            if (this.velocity.vY > 0){
+                // going down
+                if (solid_items[x].collides_with({pos:{x:this.pos.x, y:this.pos.y}, width:this.width, height:this.velocity.vY+this.height})){
+                    // collision detected!
+                    goY = false;
                     temp_y = solid_items[x].pos.y-this.height;
                     this.grounded = true;
                     this.acted_friction = solid_items[x].friction
-                } else {
+                }
+            } else if (this.velocity.vY < 0){
+                // going up
+                if (solid_items[x].collides_with({pos:{x:this.pos.x, y:this.pos.y+(this.velocity.vY)}, width:this.width, height:Math.abs((this.velocity.vY))})){
+                    // collision detected!
+                    goY = false;
                     temp_y = solid_items[x].pos.y+solid_items[x].height;
                 }
             }
+
+            // if (solid_items[x].collides_with({pos:{x:this.pos.x, y:this.pos.y}, width:this.width, height:this.velocity.vY+this.height})){
+            //     // collision detected!
+            //     goY = false;
+            //     if (solid_items[x].pos.y > this.pos.y){
+            //         // up
+            //         temp_y = solid_items[x].pos.y-this.height;
+            //         this.grounded = true;
+            //         this.acted_friction = solid_items[x].friction
+            //     } else {
+            //         temp_y = solid_items[x].pos.y+solid_items[x].height;
+            //     }
+            // }
         }
         if (goY){
             this.pos.y += this.velocity.vY;
@@ -148,6 +167,8 @@ class Sprite {
 
         if (this.velocity.vX > 10){
             this.velocity.vX = 10;
+        } else if (this.velocity.vX < -5){
+            this.velocity.vX = -5;
         }
     }
 
@@ -293,7 +314,36 @@ let dir_ref = {
     "r":[5, 0],
     "":[0, 0]
 }
+
+const background1 = new Image();
+background1.src = "./Images/gravity/opening-1.png";
+
+const background2 = new Image();
+background2.src = "./Images/gravity/opening-2.png";
+
+const background3 = new Image();
+background3.src = "./Images/gravity/opening-3.png";
+
+const background4 = new Image();
+background4.src = "./Images/gravity/opening-4.png";
+
+const background5 = new Image();
+background5.src = "./Images/gravity/opening-5.png";
+
+const background6 = new Image();
+background6.src = "./Images/gravity/opening-6.png";
+
+const background7 = new Image();
+background7.src = "./Images/gravity/opening-7.png";
+
+const background8 = new Image();
+background8.src = "./Images/gravity/opening-8.png";
+
+const background9 = new Image();
+background9.src = "./Images/gravity/opening-9.png";
+
 let colors = plus_reverse(["#FFF", "#EEE", "#CCC", "#AAB", "#88A", "#669", "#448", "#226", "#005",]);
+let opening_images = plus_reverse([background1, background2, background3, background4, background5, background6, background7, background8, background9]);
 // document.write(colors)
 
 function start(){
@@ -301,6 +351,8 @@ function start(){
 
     ctx.fillStyle = "#005";
     ctx.fillRect(0, 0, 800, 500);
+
+    ctx.drawImage(opening_images[frames%opening_images.length], 0, 0)
 
     ctx.font = "30px Arial";
     ctx.fillStyle = colors[frames%colors.length];
