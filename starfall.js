@@ -4,6 +4,16 @@ const ctx = cvs.getContext("2d");
 
 const cGRAVITY = 3;
 
+function get_moveset(moves, durations){
+    let list = [];
+    for (let x=0; x<moves.length; x++){
+        for (let y=0; y<durations[x]; y++){
+            list.push(moves[x]);
+        }
+    }
+    return list;
+}
+
 function plus_reverse(list){
     for (let x=list.length-1; x >= 0; x--){
         list.push(list[x])
@@ -23,12 +33,14 @@ function remove(list, index){
 
 // CLASSES
 class Sprite {
-    constructor (x, y, width, height, root, animation_info, gravity_affected=false, solid=false, friction=0, health=-100) {
+    constructor (x, y, width, height, root, animation_info, gravity_affected=false, solid=false, friction=0, health=-100, moveset=[]) {
         this.root = root;
         this.health = health;
         this.animation_info = animation_info;
         this.width = width;
         this.height = height;
+        this.moveset = moveset;
+        this.moveIdx = 0;
         this.pos = {
             x:x,
             y:y
@@ -55,6 +67,13 @@ class Sprite {
         if (this.health <= 0 && this.health != -100){
             return;
         } else {
+            if (this.moveset.length > 0){
+                this.moveIdx++;
+                if (this.moveIdx >= this.moveset.length){
+                    this.moveIdx = 0;
+                }
+                this.move(this.moveset[this.moveIdx][0], this.moveset[this.moveIdx][1]);
+            }
             // Draw
             let num_frames = this.animation_info[animation][0];
             let frame_wait = this.animation_info[animation][1];
@@ -223,6 +242,11 @@ class Sprite {
         this.velocity.vY += vY;
     }
 
+    set_move(vX, vY){
+        this.velocity.vX = vX;
+        this.velocity.vY = vY;
+    }
+
     hit(dangers, hp=1){
         if (this.health <= 0 && this.health != -100){
             return -1;
@@ -289,6 +313,13 @@ document.addEventListener("keydown", function(event){
             fire.move(15, 0);
             star_fire.push(fire);
         }
+    } if (event.keyCode == 52){
+        // 4
+        if (throw_fire.length <= 2) {
+            let fire = new Sprite(char.pos.x, char.pos.y, 50, 50, "./Images/gravity/throwing-stars-", {"default":[2, 3, true]})
+            fire.move(15, 0);
+            throw_fire.push(fire);
+        }
     }
 });
 
@@ -317,28 +348,39 @@ let char = new Sprite(200, 200, 50, 50, "./Images/gravity/me-", {"default":[1, 5
 // Blocks
 let maps = [
     [
-        "       -              ",
-        "       -              ",
-        "       -  -           ",
-        "       -  -           ",
-        "      s-  -        x  ",
-        "       -              ",
-        "       -              ",
-        "       -        m     ",
+        "                      ",
+        "                      ",
+        "          -           ",
+        "          -           ",
+        "          -        x  ",
+        "                      ",
+        "                      ",
+        "      m     s   o     ",
         " ---------========--- ",
     ]
 ]
 
+// right, jump, left, jump
+const cMoveset1 = get_moveset([[0,0], [5,0], [0,0], [0,-20], [0,0], [-5,0], [0,0], [0,-20]], [20, 5, 10, 1, 20, 5, 10, 1])
+// jump, jump, jump
+const cMoveset2 = get_moveset([[0,0], [0, -10], [0,0], [0,-15], [0,0], [0,-25]], [20, 1, 5, 1, 10, 1])
+// right, left
+const cMoveset3 = get_moveset([[0,0], [5,0], [0,0], [-5,0]], [20, 10, 20, 10]);
+// left, jump
+const cMoveset4 = get_moveset([[0,0], [-5,0], [0,0], [0,-20]], [20, 5, 5, 1])
+
 let info = {
     "-":["./Images/gravity/dirt-", {"default":[1, 5, true]}, 100, "block"],
     "=":["./Images/gravity/ice-", {"default":[1, 5, true]}, 1, "block"],
-    "m":["./Images/gravity/moon-enemy-", {"default":[1, 5, true]}, 1, "enemy"],
-    "s":["./Images/gravity/sun-enemy-", {"default":[1, 5, true]}, 3, "enemy"],
-    "x":["./Images/gravity/star-enemy-", {"default":[1, 5, true]}, 6, "enemy"],
+    "m":["./Images/gravity/moon-enemy-", {"default":[1, 5, true]}, 1, "enemy", cMoveset1],
+    "s":["./Images/gravity/sun-enemy-", {"default":[1, 5, true]}, 3, "enemy", cMoveset2],
+    "x":["./Images/gravity/star-enemy-", {"default":[1, 5, true]}, 6, "enemy", cMoveset4],
+    "o":["./Images/gravity/space-enemy-", {"default":[1, 5, true]}, 1, "enemy", cMoveset3],
 }
 
 let block_map = [];
 let enemy_map = {
+    "o":[],
     "m":[],
     "s":[],
     "x":[],
@@ -347,6 +389,7 @@ let enemy_fire = [];
 let moon_fire = [];
 let sun_fire = [];
 let star_fire = [];
+let throw_fire = [];
 
 let row;
 let value;
@@ -360,7 +403,7 @@ for (let i=0; i < maps.length; i++){
                     let block = new Sprite((y*50), (x*50), 50, 50, info[value][0], info[value][1], false, true, info[value][2]);
                     block_map.push(block)
                 } else if (info[value][3] == "enemy"){
-                    let enemy = new Sprite((y*50), (x*50), 50, 50, info[value][0], info[value][1], true, true, 0, info[value][2]);
+                    let enemy = new Sprite((y*50), (x*50), 50, 50, info[value][0], info[value][1], true, true, 0, info[value][2], info[value][4]);
                     enemy_map[value].push(enemy);
                 }
             }
@@ -452,6 +495,18 @@ function draw(){
 
     //
     temp = [];
+    for (let x=0; x<throw_fire.length; x++){
+        throw_fire[x].update(frames, "default", false, [], baseX=offsetX, baseY=offsetY);
+        if (Math.abs(throw_fire[x].pos.x-char.pos.x) > 250){
+            // alert(x)
+            temp.push(x)
+        }
+    }
+    for (let x=0; x<temp.length; x++){
+        throw_fire = remove(throw_fire, temp[x]);
+    }
+
+    temp = [];
     for (let x=0; x<moon_fire.length; x++){
         moon_fire[x].update(frames, "default", false, [], baseX=offsetX, baseY=offsetY);
         // document.write(Math.abs(moon_fire[x].pos.x-char.pos.x).toString()+" | ")
@@ -488,6 +543,20 @@ function draw(){
 
 
     //
+    temp_list = [];
+    for (let x=0; x<enemy_map["o"].length; x++){
+        enemy_map["o"][x].update(frames, "default", false, block_map, baseX=offsetX, baseY=offsetY);
+        temp = enemy_map["o"][x].hit(throw_fire.concat(sun_fire).concat(moon_fire).concat(star_fire));
+        if (Number(temp) == -1){
+            //
+        } else {
+            throw_fire[temp].health = -1;
+            temp_list.push(temp)
+        }
+    }
+    for (let x=0; x<temp_list.length; x++){
+        throw_fire = remove(throw_fire, temp_list[x]);
+    }
 
     temp_list = [];
     for (let x=0; x<enemy_map["m"].length; x++){
