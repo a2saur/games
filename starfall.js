@@ -4,6 +4,56 @@ const ctx = cvs.getContext("2d");
 
 const cGRAVITY = 3;
 
+function draw_triangle(sX=100, sY=100, width=25, height=10, direction="u", color="#F00") {
+    sX += 25;
+    sY += 25;
+    // centers coords on character
+
+    if (sX < 0){
+        sX = 0;
+    } else if (sX > cvs.width){
+        sX = cvs.width;
+    }
+
+    if (sY < 0){
+        sY = 0;
+    } else if (sY > cvs.height){
+        sY = cvs.height;
+    }
+
+    ctx.fillStyle = color;
+    ctx.beginPath();
+    ctx.moveTo(sX, sY);
+    if (direction == "r"){
+        ctx.lineTo(sX+width, sY+(height/2));
+        ctx.lineTo(sX+width, sY-(height/2));
+    } if (direction == "l"){
+        ctx.lineTo(sX-width, sY+(height/2));
+        ctx.lineTo(sX-width, sY-(height/2));
+    } if (direction == "u"){
+        ctx.lineTo(sX+(width/2), sY+height);
+        ctx.lineTo(sX-(width/2), sY+height);
+    } if (direction == "d"){
+        ctx.lineTo(sX+(width/2), sY-height);
+        ctx.lineTo(sX-(width/2), sY-height);
+    }
+    ctx.fill();
+}
+
+function char_hit_enemies(char, enemy_map, hp=0.5){
+    enemies = ["o", "x", "s", "m"];
+    for (let x=0; x<enemies.length; x++){
+        temp = char.hit(enemy_map[enemies[x]], hp);
+        if (temp != -1){
+            if (char.pos.x < enemy_map[enemies[x]][temp].pos.x){
+                char.move(-10, 0);
+            } else {
+                char.move(10, 0);
+            }
+        }
+    }
+}
+
 function get_moveset(moves, durations){
     let list = [];
     for (let x=0; x<moves.length; x++){
@@ -262,6 +312,146 @@ class Sprite {
             return -1;
         }
     }
+
+    onscreen(offsetX, offsetY, xBuffer=0, yBuffer=0){
+        if (this.pos.x+offsetX >= cvs.width-xBuffer){
+            // off to the right
+            return false;
+        } else if (this.pos.x+offsetX <= xBuffer){
+            // off to the left
+            return false;
+        } else if (this.pos.y+offsetY >= cvs.height-yBuffer){
+            // off to the down
+            return false;
+        } else if (this.pos.y+offsetY <= yBuffer){
+            // off to the up
+            return false;
+        } else {
+            return true;
+        }
+    }
+}
+
+class Health {
+    constructor (x, y, health=3) {
+        this.max_health = health;
+        this.pos = {
+            x:x,
+            y:y
+        }
+
+        this.heartEmptyImg = new Image();
+        this.heartEmptyImg.src = "./Images/gravity/heart-empty-default-1.png"
+
+        this.heartHalfImg = new Image();
+        this.heartHalfImg.src = "./Images/gravity/heart-half-default-1.png"
+
+        this.heartFullImg = new Image();
+        this.heartFullImg.src = "./Images/gravity/heart-full-default-1.png"
+    }
+
+    update (health, spacing=10){
+        let temp = health;
+        for (let x=0; x<this.max_health; x++){
+            if (temp == 0){
+                ctx.drawImage(this.heartEmptyImg, this.pos.x+(x*(50+spacing)), this.pos.y);
+            } else if (temp == 0.5){
+                ctx.drawImage(this.heartHalfImg, this.pos.x+(x*(50+spacing)), this.pos.y);
+                temp -= 0.5;
+            } else if (temp >= 1){
+                ctx.drawImage(this.heartFullImg, this.pos.x+(x*(50+spacing)), this.pos.y);
+                temp--;
+            }
+        }
+    }
+}
+
+class Popup {
+    constructor (x, y, message="", imgRoot="", backgroundColor="#FFF"){
+        this.haveImage = false;
+        if (imgRoot != ""){
+            this.image = new Image();
+            this.image.src = imgRoot;
+            this.haveImage = true;
+        }
+        this.message = message;
+        this.updating = true;
+        this.pos = {
+            x:x,
+            y:y
+        }
+        this.backgroundColor = backgroundColor;
+        return true;
+    }
+
+    update(){
+        if (this.updating) {
+            if (this.haveImage) {
+                ctx.drawImage(this.image, this.pos.x, this.pos.y);
+                ctx.fillStyle = this.backgroundColor;
+                ctx.fillRect(this.pos.x, this.pos.y+this.image.height, this.image.width, 50);
+
+                ctx.font = "30px Arial";
+                ctx.fillStyle = "#000";
+                ctx.fillText(this.message, this.pos.x+10, this.pos.y+this.image.height+10);
+            } else {
+                ctx.fillStyle = this.backgroundColor;
+                ctx.fillRect(this.pos.x, this.pos.y, this.message.length*25, 50);
+
+                ctx.font = "30px Arial";
+                ctx.fillStyle = "#000";
+                ctx.fillText(this.message, this.pos.x+10, this.pos.y+40, this.message.length*25);
+
+            }
+        } else {
+            // alert("NOT UPDATING")
+        }
+    }
+
+    end () {
+        this.updating = false;
+    }
+}
+
+class AlertSet {
+    constructor (xs=[], ys=[], messages=[], images=[], backgroundColors=[]){
+        this.alerts = [];
+        for (let x=0; x<messages.length; x++){
+            let temp_alert = new Popup(xs[x], ys[x], messages[x], images[x], backgroundColors[x])
+            this.alerts.push(temp_alert)
+        }
+    }
+
+    update (){
+        if (this.alerts.length <= 0){
+            return true;
+        } else {
+            // for (let x=0; x<this.alerts.length; x++){
+            //     this.alerts[x].update();
+            //     alert("UPDATING")
+            // }
+            this.alerts[0].update();
+            return false;
+        }
+    }
+
+    add_alert(x, y, message="", imgRoot="", backgroundColor="#FFF"){
+        let temp_alert = new Popup(x, y, message, imgRoot, backgroundColor);
+        this.alerts.push(temp_alert);
+    }
+
+    add_alerts(xs=[], ys=[], messages=[], images=[], backgroundColors=[]){
+        this.alerts = [];
+        for (let x=0; x<messages.length; x++){
+            let temp_alert = new Popup(xs[x], ys[x], messages[x], images[x], backgroundColors[x])
+            this.alerts.push(temp_alert)
+        }
+    }
+
+    next(){
+        this.alerts[0].end();
+        this.alerts = remove(this.alerts, 0);
+    }
 }
 
 //Get Keys
@@ -290,8 +480,13 @@ document.addEventListener("keydown", function(event){
         // char.pos.x += 25;
         walk = "r";
     } if (event.keyCode == 13){
-        clearInterval(opening);
-        let game = setInterval(draw, 100);
+        // clearInterval(opening);
+        // let game = setInterval(draw, 100);
+        if (scene == "opening"){
+            scene = "main";
+        } else {
+            alerts.next();
+        }
     } if (event.keyCode == 49){
         // 1
         if (moon_fire.length <= 2) {
@@ -320,6 +515,22 @@ document.addEventListener("keydown", function(event){
             fire.move(15, 0);
             throw_fire.push(fire);
         }
+    } if (event.keyCode == 65) {
+        // a
+        camOffsetX += 25;
+    } if (event.keyCode == 83) {
+        // s
+        camOffsetY -= 25;
+    } if (event.keyCode == 68) {
+        // d
+        camOffsetX -= 25;
+    } if (event.keyCode == 87) {
+        // w
+        camOffsetY += 25;
+    } if (event.keyCode == 82) {
+        // r
+        camOffsetX = 0;
+        camOffsetY = 0;
     }
 });
 
@@ -344,6 +555,7 @@ document.addEventListener("keyup", function(event){
 });
 
 let char = new Sprite(200, 200, 50, 50, "./Images/gravity/me-", {"default":[1, 5, false], "idle":[8, 3, true], "walk":[4, 1, true], "jump":[11, 1, false],}, true, true, 0, 10);
+let health_indicator = new Health(10, 440, char.health)
 
 // Blocks
 let maps = [
@@ -415,11 +627,15 @@ let frames = 0;
 let current_anim = "idle"
 let jump_counter = 0;
 let walk = "";
+let camOffsetX = 0;
+let camOffsetY = 0;
 let dir_ref = {
     "l":[-5, 0],
     "r":[5, 0],
     "":[0, 0]
 }
+let alerts = new AlertSet();
+let scene = "opening";
 
 
 // starting stuff
@@ -470,154 +686,190 @@ function start(){
 }
 // end starting stuff
 // Draw
-function draw(){
-    frames++;
-    ctx.fillStyle = "#ccc";
-    ctx.fillRect(0, 0, 800, 500);
-
-    offsetX = (cvs.width/2)-char.pos.x;
-    offsetY = (cvs.height/2)-char.pos.y;
-
-    char.update(frames, current_anim, false, block_map, offsetX, offsetY);
-    char.hit(enemy_fire);
-    if (char.grounded){
-        if (jump_counter > 0){
-            jump_counter = 0;
-            current_anim = "idle";
+function main(){
+    if (alerts.update()){
+        if (frames == 50){
+            alerts.add_alert(100, 100, "HELLOOOOOO", "", "#FFF");
         }
-    }
+        frames++;
+        ctx.fillStyle = "#ccc";
+        ctx.fillRect(0, 0, 800, 500);
 
-    //
+        offsetX = ((cvs.width/2)-char.pos.x)+camOffsetX;
+        offsetY = ((cvs.height/2)-char.pos.y)+camOffsetY;
 
-    for (let x=0; x<block_map.length; x++){
-        block_map[x].update(frames, "default", false, [], baseX=offsetX, baseY=offsetY);
-    }
+        char.update(frames, current_anim, false, block_map, offsetX, offsetY);
+        // check hit
+        char.hit(enemy_fire);
+        char_hit_enemies(char, enemy_map);
 
-    //
-    temp = [];
-    for (let x=0; x<throw_fire.length; x++){
-        throw_fire[x].update(frames, "default", false, [], baseX=offsetX, baseY=offsetY);
-        if (Math.abs(throw_fire[x].pos.x-char.pos.x) > 250){
-            // alert(x)
-            temp.push(x)
+        if (char.grounded){
+            if (jump_counter > 0){
+                jump_counter = 0;
+                current_anim = "idle";
+            }
         }
-    }
-    for (let x=0; x<temp.length; x++){
-        throw_fire = remove(throw_fire, temp[x]);
-    }
 
-    temp = [];
-    for (let x=0; x<moon_fire.length; x++){
-        moon_fire[x].update(frames, "default", false, [], baseX=offsetX, baseY=offsetY);
-        // document.write(Math.abs(moon_fire[x].pos.x-char.pos.x).toString()+" | ")
-        if (Math.abs(moon_fire[x].pos.x-char.pos.x) > 250){
-            // alert(x)
-            temp.push(x)
+        //
+
+        for (let x=0; x<block_map.length; x++){
+            block_map[x].update(frames, "default", false, [], baseX=offsetX, baseY=offsetY);
         }
-    }
-    for (let x=0; x<temp.length; x++){
-        moon_fire = remove(moon_fire, temp[x]);
-    }
 
-    temp = [];
-    for (let x=0; x<sun_fire.length; x++){
-        sun_fire[x].update(frames, "default", false, [], baseX=offsetX, baseY=offsetY);
-        if (Math.abs(sun_fire[x].pos.x-char.pos.x) > 250){
-            temp.push(x)
+        health_indicator.update(char.health, 0);
+        if (camOffsetX >= cvs.width/2){
+            // off to the right
+            draw_triangle(cvs.width, offsetY+char.pos.y, 50, 50, "l");
+        } if (camOffsetX <= -(cvs.width/2)){
+            // off to the left
+            draw_triangle(0, offsetY+char.pos.y, 50, 50, "r");
+        } if (camOffsetY >= (cvs.height/2)){
+            // off to the down
+            draw_triangle(offsetX+char.pos.x, cvs.height-100, 50, 50, "d");
+        } if (camOffsetY <= -(cvs.height/2)){
+            // off to the up
+            draw_triangle(offsetX+char.pos.x, 0, 50, 50, "u");
         }
-    }
-    for (let x=0; x<temp.length; x++){
-        sun_fire = remove(sun_fire, temp[x]);
-    }
 
-    temp = [];
-    for (let x=0; x<star_fire.length; x++){
-        star_fire[x].update(frames, "default", false, [], baseX=offsetX, baseY=offsetY);
-        if (Math.abs(star_fire[x].pos.x-char.pos.x) > 250){
-            temp.push(x)
+        //
+        temp = [];
+        for (let x=0; x<throw_fire.length; x++){
+            throw_fire[x].update(frames, "default", false, [], baseX=offsetX, baseY=offsetY);
+            if (Math.abs(throw_fire[x].pos.x-char.pos.x) > 250){
+                // alert(x)
+                temp.push(x)
+            }
         }
-    }
-    for (let x=0; x<temp.length; x++){
-        star_fire = remove(star_fire, temp[x]);
-    }
-
-
-    //
-    temp_list = [];
-    for (let x=0; x<enemy_map["o"].length; x++){
-        enemy_map["o"][x].update(frames, "default", false, block_map, baseX=offsetX, baseY=offsetY);
-        temp = enemy_map["o"][x].hit(throw_fire.concat(sun_fire).concat(moon_fire).concat(star_fire));
-        if (Number(temp) == -1){
-            //
-        } else {
-            throw_fire[temp].health = -1;
-            temp_list.push(temp)
+        for (let x=0; x<temp.length; x++){
+            throw_fire = remove(throw_fire, temp[x]);
         }
-    }
-    for (let x=0; x<temp_list.length; x++){
-        throw_fire = remove(throw_fire, temp_list[x]);
-    }
 
-    temp_list = [];
-    for (let x=0; x<enemy_map["m"].length; x++){
-        enemy_map["m"][x].update(frames, "default", false, block_map, baseX=offsetX, baseY=offsetY);
-        temp = enemy_map["m"][x].hit(moon_fire);
-        // document.write(temp);
-        if (Number(temp) == -1){
-            //
-        } else {
-            // document.write("A")
-            moon_fire[temp].health = -1;
-            temp_list.push(temp)
+        temp = [];
+        for (let x=0; x<moon_fire.length; x++){
+            moon_fire[x].update(frames, "default", false, [], baseX=offsetX, baseY=offsetY);
+            // document.write(Math.abs(moon_fire[x].pos.x-char.pos.x).toString()+" | ")
+            if (Math.abs(moon_fire[x].pos.x-char.pos.x) > 250){
+                // alert(x)
+                temp.push(x)
+            }
         }
-    }
-    for (let x=0; x<temp_list.length; x++){
-        moon_fire = remove(moon_fire, temp_list[x]);
-    }
-
-    temp_list = [];
-    for (let x=0; x<enemy_map["s"].length; x++){
-        enemy_map["s"][x].update(frames, "default", false, block_map, baseX=offsetX, baseY=offsetY);
-        temp = enemy_map["s"][x].hit(sun_fire);
-        // document.write(temp);
-        if (Number(temp) == -1){
-            //
-        } else {
-            sun_fire[temp].health = -1;
-            temp_list.push(temp)
+        for (let x=0; x<temp.length; x++){
+            moon_fire = remove(moon_fire, temp[x]);
         }
-    }
-    for (let x=0; x<temp_list.length; x++){
-        sun_fire = remove(sun_fire, temp_list[x]);
-    }
 
-    temp_list = [];
-    for (let x=0; x<enemy_map["x"].length; x++){
-        enemy_map["x"][x].update(frames, "default", false, block_map, baseX=offsetX, baseY=offsetY);
-        temp = enemy_map["x"][x].hit(star_fire);
-        // document.write(temp);
-        if (Number(temp) == -1){
-            //
-        } else {
-            // document.write("A")
-            star_fire[temp].health = -1;
-            temp_list.push(temp)
+        temp = [];
+        for (let x=0; x<sun_fire.length; x++){
+            sun_fire[x].update(frames, "default", false, [], baseX=offsetX, baseY=offsetY);
+            if (Math.abs(sun_fire[x].pos.x-char.pos.x) > 250){
+                temp.push(x)
+            }
         }
-    }
-    for (let x=0; x<temp_list.length; x++){
-        star_fire = remove(star_fire, temp_list[x]);
-    }
+        for (let x=0; x<temp.length; x++){
+            sun_fire = remove(sun_fire, temp[x]);
+        }
 
-    // ctx.font = "30px Arial";
-    // ctx.fillStyle = "#000";
-    // ctx.fillText(char.pos.x.toString()+", "+char.pos.y.toString(), 200, 300);
+        temp = [];
+        for (let x=0; x<star_fire.length; x++){
+            star_fire[x].update(frames, "default", false, [], baseX=offsetX, baseY=offsetY);
+            if (Math.abs(star_fire[x].pos.x-char.pos.x) > 250){
+                temp.push(x)
+            }
+        }
+        for (let x=0; x<temp.length; x++){
+            star_fire = remove(star_fire, temp[x]);
+        }
 
-    char.move(dir_ref[walk][0], dir_ref[walk][1]);
-    // Done?
-    // if (enemy.y-player.y <= 20){
-    //     clearInterval(game);
-    // }
+
+        //
+        temp_list = [];
+        for (let x=0; x<enemy_map["o"].length; x++){
+            enemy_map["o"][x].update(frames, "default", false, block_map, baseX=offsetX, baseY=offsetY);
+            temp = enemy_map["o"][x].hit(throw_fire.concat(sun_fire).concat(moon_fire).concat(star_fire));
+            // if (enemy_map["o"][x].onscreen(offsetX, offsetY, 150, 150)){
+            //     alerts.add_alert(100, 100, "AAAA!")
+            // }
+            if (Number(temp) == -1){
+                //
+            } else {
+                throw_fire[temp].health = -1;
+                temp_list.push(temp)
+            }
+        }
+        for (let x=0; x<temp_list.length; x++){
+            throw_fire = remove(throw_fire, temp_list[x]);
+        }
+
+        temp_list = [];
+        for (let x=0; x<enemy_map["m"].length; x++){
+            enemy_map["m"][x].update(frames, "default", false, block_map, baseX=offsetX, baseY=offsetY);
+            temp = enemy_map["m"][x].hit(moon_fire);
+            // document.write(temp);
+            if (Number(temp) == -1){
+                //
+            } else {
+                // document.write("A")
+                moon_fire[temp].health = -1;
+                temp_list.push(temp)
+            }
+        }
+        for (let x=0; x<temp_list.length; x++){
+            moon_fire = remove(moon_fire, temp_list[x]);
+        }
+
+        temp_list = [];
+        for (let x=0; x<enemy_map["s"].length; x++){
+            enemy_map["s"][x].update(frames, "default", false, block_map, baseX=offsetX, baseY=offsetY);
+            temp = enemy_map["s"][x].hit(sun_fire);
+            // document.write(temp);
+            if (Number(temp) == -1){
+                //
+            } else {
+                sun_fire[temp].health = -1;
+                temp_list.push(temp)
+            }
+        }
+        for (let x=0; x<temp_list.length; x++){
+            sun_fire = remove(sun_fire, temp_list[x]);
+        }
+
+        temp_list = [];
+        for (let x=0; x<enemy_map["x"].length; x++){
+            enemy_map["x"][x].update(frames, "default", false, block_map, baseX=offsetX, baseY=offsetY);
+            temp = enemy_map["x"][x].hit(star_fire);
+            // document.write(temp);
+            if (Number(temp) == -1){
+                //
+            } else {
+                // document.write("A")
+                star_fire[temp].health = -1;
+                temp_list.push(temp)
+            }
+        }
+        for (let x=0; x<temp_list.length; x++){
+            star_fire = remove(star_fire, temp_list[x]);
+        }
+
+        // ctx.font = "30px Arial";
+        // ctx.fillStyle = "#000";
+        // ctx.fillText(frames, 200, 300)//char.pos.x.toString()+", "+char.pos.y.toString(), 200, 300);
+
+        char.move(dir_ref[walk][0], dir_ref[walk][1]);
+        // Done?
+        // if (enemy.y-player.y <= 20){
+        //     clearInterval(game);
+        // }
+    } else {
+        // document.write("AAA")
+    }
 }
 
-let opening = setInterval(start, 100);
-// let game = setInterval(draw, 100);
+function game_operator(){
+    if (scene == "opening"){
+        start();
+    } else if (scene == "main"){
+        main();
+    }
+}
+
+// let opening = setInterval(start, 100);
+let game = setInterval(game_operator, 100);
