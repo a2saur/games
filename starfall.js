@@ -636,6 +636,7 @@ let dir_ref = {
 }
 let alerts = new AlertSet();
 let scene = "opening";
+let juju = new Sprite(cvs.width/2, cvs.height/2, 50, 50, "./Images/gravity/juju-", {"default":[16, 1, true]}, false, false);
 
 
 // starting stuff
@@ -717,6 +718,9 @@ function main(){
         }
 
         health_indicator.update(char.health, 0);
+        if (camOffsetX != 0 || camOffsetY != 0){
+            juju.update(frames, "default")
+        }
         if (camOffsetX >= cvs.width/2){
             // off to the right
             draw_triangle(cvs.width, offsetY+char.pos.y, 50, 50, "l");
