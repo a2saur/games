@@ -45,29 +45,59 @@ nav a:hover {
     color:#000000;
 }
 
-.dropdown {
-    background-color: #00e0ff;
+
+.canvas {
     text-align: center;
-    width:100%;
-    font-size:1.5vw;
+}
+
+/* Dropdown Button */
+.dropbtn {
+    background-color: #555555;
+    color: white;
+    padding: 1%;/*50% 20% 50% 20%; */
+    font-size:1.7vw;
+    border: none;
+    flex:0.2;
+}
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
     position: relative;
     display: inline-block;
 }
-  
+
+/* Dropdown Content (Hidden by Default) */
 .dropdown-content {
     display: none;
-    position: relative;
-    background-color: #ffffff;
-    color: #000000;
-    width:100vw;
-    padding: 12px 16px;
+    position: absolute;
+    background-color: #555555;
+    width: 100%;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     z-index: 1;
+    overflow:auto;
 }
   
+/* Links inside the dropdown */
+.dropdown-content a {
+    flex:0.2;
+    text-align:center;
+    color:#ffffff;
+    text-decoration: none;
+    display: block;
+}
+  
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {
+    background-color: #ddd;
+}
+
+/* Show the dropdown menu on hover */
 .dropdown:hover .dropdown-content {
     display: block;
 }
 
-.canvas {
-    text-align: center;
+/* Change the background color of the dropdown button when the dropdown content is shown */
+.dropdown:hover .dropbtn {
+    background-color: #00ff00;
+    color:#000000;
 }

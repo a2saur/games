@@ -231,7 +231,7 @@ class Sprite {
                 this.velocity.vX = 0;
             }
 
-            if (this.gravity_affected && goX && goY){
+            if (this.gravity_affected && goY){
                 this.velocity.vY += cGRAVITY;
             }
             if (this.velocity.vX < 0) {
@@ -250,8 +250,8 @@ class Sprite {
 
             if (this.velocity.vX > 10){
                 this.velocity.vX = 10;
-            } else if (this.velocity.vX < -5){
-                this.velocity.vX = -5;
+            } else if (this.velocity.vX < -10){
+                this.velocity.vX = -10;
             }
         }
     }
@@ -396,6 +396,30 @@ class Popup {
                 ctx.fillText(this.message, this.pos.x+10, this.pos.y+this.image.height+10);
             } else {
                 ctx.fillStyle = this.backgroundColor;
+                ctx.fillRect(this.pos.x, this.pos.y, cvs.width-(this.pos.x*2), 50);
+
+                ctx.font = "30px Arial";
+                ctx.fillStyle = "#000";
+                ctx.fillText(this.message, this.pos.x+10, this.pos.y+40, cvs.width-(this.pos.x*2));
+
+            }
+        } else {
+            // alert("NOT UPDATING")
+        }
+    }
+
+    update2(){
+        if (this.updating) {
+            if (this.haveImage) {
+                ctx.drawImage(this.image, this.pos.x, this.pos.y);
+                ctx.fillStyle = this.backgroundColor;
+                ctx.fillRect(this.pos.x, this.pos.y+this.image.height, this.image.width, 50);
+
+                ctx.font = "30px Arial";
+                ctx.fillStyle = "#000";
+                ctx.fillText(this.message, this.pos.x+10, this.pos.y+this.image.height+10);
+            } else {
+                ctx.fillStyle = this.backgroundColor;
                 ctx.fillRect(this.pos.x, this.pos.y, this.message.length*25, 50);
 
                 ctx.font = "30px Arial";
@@ -448,6 +472,14 @@ class AlertSet {
         }
     }
 
+    add_alerts_at(xs, ys, messages=[], images=[], backgroundColors=[]){
+        this.alerts = [];
+        for (let x=0; x<messages.length; x++){
+            let temp_alert = new Popup(xs, ys, messages[x], images[x], backgroundColors[x])
+            this.alerts.push(temp_alert)
+        }
+    }
+
     next(){
         this.alerts[0].end();
         this.alerts = remove(this.alerts, 0);
@@ -461,7 +493,7 @@ document.addEventListener("keydown", function(event){
         current_anim = "jump";
         if (jump_counter < 1){//char.grounded){
             jump_counter++;
-            char.move(0, -30);
+            char.move(0, -32);
         }
     } if (event.keyCode == 37){
         //left
@@ -483,6 +515,7 @@ document.addEventListener("keydown", function(event){
         // clearInterval(opening);
         // let game = setInterval(draw, 100);
         if (scene == "opening"){
+            frames = 0;
             scene = "main";
         } else {
             alerts.next();
@@ -554,22 +587,12 @@ document.addEventListener("keyup", function(event){
     }
 });
 
-let char = new Sprite(200, 200, 50, 50, "./Images/gravity/me-", {"default":[1, 5, false], "idle":[8, 3, true], "walk":[4, 1, true], "jump":[11, 1, false],}, true, true, 0, 10);
+let char = new Sprite(200, 700, 50, 50, "./Images/gravity/me-", {"default":[1, 5, false], "idle":[8, 3, true], "walk":[4, 1, true], "jump":[11, 1, false],}, true, true, 0, 10);
 let health_indicator = new Health(10, 440, char.health)
 
 // Blocks
 let maps = [
-    [
-        "                      ",
-        "                      ",
-        "          -           ",
-        "          -           ",
-        "          -        x  ",
-        "                      ",
-        "                      ",
-        "      m     s   o     ",
-        " ---------========--- ",
-    ]
+    ['                                                                                                                                                                                                        ', '                                                                                                                                                                                                        ', '                                                                                                                                                                                                        ', '                                                                                                                                                                                                        ', '                                                                                                                                                                                                        ', '                                                                                                                                                                                                        ', '                                                                                                                                                                                                        ', '                                                                                                                                                                                                        ', '                                                                                                                                                                                                        ', '                                                                                                                                                                                                        ', '                                                                                                                                                                                                        ', '                                                                                                                                                                                                        ', '                                                                                                                                                                                                        ', '                                                                                                                                                                                                        ', '                                                                                                                                                                                                        ', '                                                                                                                                                                                                        ', '                                                                                                                                                                                                        ', '                                                                                                                                                                                                        ', '                                                                                                                                                                                                        ', '                                                                                                                                                                                                        ', '                                                                                                                                                                                                        ', '                                                                                                                                                                                                        ', '                                                                                  o                                                                                                                     ', '                                                                                oooo                                                                                                                    ', '                                                                                                                                                                                                        ', '-                                                                             o                                                                                                                         ', '-                                                                           ----                                                                                                                        ', '-                                                                                                                                                                                                       ', '-                                                                                                                                                                                                       ', '-                                                                          -                                                                                                                            ', '--                                                                                                                                                                                                      ', '--                                                                                  oo                                                                                                                  ', '--                                                                          -    -------                                                                                                                ', '--               o    o    o                                                                                                                                                                            ', '--           -------------------                                                                                                                                                                        ', '---                   -                                                    -                                                                                                                            ', '---                   -                                                                                                                                                                                 ', '---        -          -          -                                                                                                                                                                      ', '---                   -                               -                     -                                                                                                                           ', '---                   -                           -------                                                                                                                                               ', '----         ---      -      ---                  -                                                                                                                                                     ', '----                  -                          --                        -   -                                                                                                                        ', '----                  -                          --                       --   --                                                                                                                       ', '----             ---- -                         ---                      --- - ---                                                                                                                      ', '----         o   -    -                   o     ---o                    ---- o ----                                                                                                                     ', '------------------ ------------------------------------------------------------------------  ------  ---------------------------------------------------------------------------------------------------', '---------------    ------------------------------------------------------------------------  -----  ----------------------------------------------------------------------------------------------------', '---------------o   ------------------------------------------------------------------------        -----------------------------------------------------------------------------------------------------', '-------------------------------------------------------------------------------------------    -o ------------------------------------------------------------------------------------------------------', '--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------']
 ]
 
 // right, jump, left, jump
@@ -630,8 +653,8 @@ let walk = "";
 let camOffsetX = 0;
 let camOffsetY = 0;
 let dir_ref = {
-    "l":[-5, 0],
-    "r":[5, 0],
+    "l":[-10, 0],
+    "r":[10, 0],
     "":[0, 0]
 }
 let alerts = new AlertSet();
@@ -689,9 +712,14 @@ function start(){
 // Draw
 function main(){
     if (alerts.update()){
-        if (frames == 50){
-            alerts.add_alert(100, 100, "HELLOOOOOO", "", "#FFF");
+        // adding alerts
+        if (frames == 0){
+            // alerts.add_alerts_at(50, 300, ["???: Hello? Hellooooo?", "MC: Hmm?", "???: Oh! You are alive!", "Juju: I\'m Juju!", "something about starfall", "Juju: Let\'s go!"])
+        } if (frames == 10){
+            // alerts.add_alerts_at(50, 300, ["Use the arrow keys to move around!", "<- Left, -> Right, ^ Jump"])
         }
+
+        //
         frames++;
         ctx.fillStyle = "#ccc";
         ctx.fillRect(0, 0, 800, 500);
