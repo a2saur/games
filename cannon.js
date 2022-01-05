@@ -91,6 +91,10 @@ function draw(){
 
         cannon_balls[i].x_speed += GRAVITY[0];
         cannon_balls[i].y_speed += GRAVITY[1];
+
+        ctx.fillStyle = "#000";
+        ctx.fillText(Math.sqrt((cannon_balls[i].x_speed**2)+(cannon_balls[i].y_speed**2)), cannon_balls[i].x, cannon_balls[i].y);
+
     }
 
     // Done?

@@ -4,12 +4,12 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
-    <title>Games</title>
+    <link href="style.css" rel="stylesheet" type="text/css" />
+    <title>Solar System</title>
 </head>
     <body>
         <header>
-            <h1>Games</h1>
+            <h1>Solar System</h1>
         </header>
 
         <nav>
@@ -18,21 +18,21 @@
             <a href="collection.html">Collection Game</a>
             <a href="penguin.html">Penguin Poopers</a>
             <a href="platformer.html">Platformer</a>
-            <a href="gravity.html">Gravity</a>
             <a href="https://a2saur.github.io/about_me/">About The Creator</a>
-            <div class="dropdown">
-                <div class="dropbtn">Physics</div>
-                <div class="dropdown-content">
-                  <a href="cannon.html">Cannon Shooter</a>
-                  <a href="solar_system.html">Solar System</a>
-                  <a href="#">Link 3</a>
-                </div>
-            </div>
         </nav>
+        
+        <div class="dropdown">
+            Instructions (Drop down)
+            <div class="dropdown-content">
+                Use the arrow keys to move around the screen.<br>
+                There is no goal, just enjoy!
+            </div>
+        </div>
+        <br>
 
-        <main>
-            <p>Welcome to A2 Games!<br>
-            Please enjoy!</p>
-        </main>
+        <div class="canvas">
+            <canvas id="game" width="768" height="576" style="background-color: #0000ff;"></canvas>
+        </div>
+        <script src="solar_system.js"></script>
     </body>
 </html>
