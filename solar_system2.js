@@ -24,11 +24,6 @@ function remove_item(list, index){
 // Change Variables
 let GRAVITY = [0, 10];
 const G = 6.672*(10**-2);//6.672*(10**-11);
-let center_mass = {
-    x:cvs.width/2,
-    y:cvs.height/2,
-    r:50
-}
 
 // Defining Images
 // const ghostR1 = new Image();
@@ -64,25 +59,21 @@ function direction(event){
         zoom -= 0.1;
     } if (event.keyCode == 65){
         //a
-        center_mass.x -= 25;
         for (let i=0; i<objects.length; i++){
             objects[i].x -= 25;
         }
     } if (event.keyCode == 68){
         //d
-        center_mass.x += 25;
         for (let i=0; i<objects.length; i++){
             objects[i].x += 25;
         }
     } if (event.keyCode == 87){
         //w
-        center_mass.y -= 25;
         for (let i=0; i<objects.length; i++){
             objects[i].y -= 25;
         }
     } if (event.keyCode == 83){
         //s
-        center_mass.y += 25;
         for (let i=0; i<objects.length; i++){
             objects[i].y += 25;
         }
@@ -134,14 +125,6 @@ function draw(){
         ctx.stroke();
     }
 
-    ctx.beginPath();
-    ctx.arc(center_mass.x/zoom, center_mass.y/zoom, center_mass.r/zoom, 0, 2 * Math.PI, false);
-    ctx.fillStyle = "#000";
-    ctx.lineWidth = 5/zoom;
-    ctx.strokeStyle = "#000";
-    ctx.fill();
-    ctx.stroke();
-
     for (let i=0; i<objects.length; i++){
         // objects[i].x, objects[i].y;
         ctx.beginPath();
@@ -156,34 +139,37 @@ function draw(){
             objects[i].x += objects[i].x_speed;
             objects[i].y += objects[i].y_speed;
 
-            dY = center_mass.y-objects[i].y;
-            dX = center_mass.x-objects[i].x;
-            r2 = dY**2 + dX**2;
-            mo = (4/3)*Math.PI*(center_mass.r**3);
-            a_vec = (G*mo)/r2;
-            theta = Math.atan(dY/dX);
-            ax = a_vec*Math.cos(theta);
-            ay = a_vec*Math.sin(theta);
+            for (let j=0; j<objects.length; j++){
+                if (j != i){
+                    dY = objects[j].y-objects[i].y;
+                    dX = objects[j].x-objects[i].x;
+                    r2 = dY**2 + dX**2;
+                    mo = (4/3)*Math.PI*(objects[j].r**3);
+                    a_vec = (G*mo)/r2;
+                    theta = Math.atan(dY/dX);
+                    ax = a_vec*Math.cos(theta);
+                    ay = a_vec*Math.sin(theta);
 
+                    if (objects[i].y > objects[j].y){
+                        if (ay > 0) ay *= -1;
+                    } if (objects[i].y < objects[j].y){
+                        if (ay < 0) ay *= -1;
+                    }
 
-            if (objects[i].y > center_mass.y){
-                if (ay > 0) ay *= -1;
-            } if (objects[i].y < center_mass.y){
-                if (ay < 0) ay *= -1;
-            }
+                    if (objects[i].x > objects[j].x){
+                        if (ax > 0) ax *= -1;
+                    } if (objects[i].x < objects[j].x){
+                        if (ax < 0) ax *= -1;
+                    } 
 
-            if (objects[i].x > center_mass.x){
-                if (ax > 0) ax *= -1;
-            } if (objects[i].x < center_mass.x){
-                if (ax < 0) ax *= -1;
-            } 
+                    objects[i].x_speed += ax;
+                    objects[i].y_speed += ay;
 
-            objects[i].x_speed += ax;
-            objects[i].y_speed += ay;
-
-            if (check_a_point(objects[i].x, objects[i].y, center_mass.x, center_mass.y, center_mass.r)) {
-                center_mass.r = Math.cbrt((center_mass.r**3)+(objects[i].r**3));
-                objects = remove_item(objects, i);
+                    if (check_a_point(objects[i].x, objects[i].y, objects[j].x, objects[j].y, objects[j].r)) {
+                        objects[j].r = Math.cbrt((objects[j].r**3)+(objects[i].r**3));
+                        objects = remove_item(objects, i);
+                    }
+                }
             }
         }
     }
