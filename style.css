@@ -45,6 +45,10 @@ nav a:hover {
     color:#000000;
 }
 
+div {
+    width: 100%;
+    text-align: center;
+}
 
 .canvas {
     text-align: center;
