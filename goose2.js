@@ -22,6 +22,12 @@ function collisions(rect1, rect2){
     }
 }
 
+function dist_rects(rect1, rect2){
+    let xDist = Math.abs((rect1.x+(rect1.width/2))-(rect2.x+(rect1.width/2)));
+    let yDist = Math.abs((rect1.y+(rect1.height/2))-(rect2.y+(rect1.height/2)));
+    return Math.sqrt(xDist**2 + yDist**2);
+}
+
 //Getting the Canvas
 const cvs = document.getElementById("game");
 const ctx = cvs.getContext("2d");
@@ -87,7 +93,7 @@ for(let i=0; i<10; i++){
             yWaited:-1,
             width:size,
             height:size,
-            runningSpeed:(Math.random()*(charXSpeed/2))
+            runningSpeed:(Math.random()*9)
         }
         children[children.length] = child;
     }
@@ -186,52 +192,70 @@ function draw(){
         ctx.drawImage(children[i].img, children[i].x, children[i].y, children[i].width, children[i].height);
 
         // move
-        if (children[i].xWaited < 0){
-            if (children[i].xAdding){
-                children[i].x += children[i].xAddMax/children[i].xMaxDelay;
-                children[i].xAdded += children[i].xAddMax/children[i].xMaxDelay;
-                if (children[i].xAdded > children[i].xAddMax){
-                    children[i].xWaited = children[i].xMaxDelay;
-                    children[i].xAdding = false;
-                    children[i].xAdded = children[i].xAddMax;
+        if (dist_rects(children[i], character) > 250){
+            if (children[i].xWaited < 0){
+                if (children[i].xAdding){
+                    children[i].x += children[i].xAddMax/children[i].xMaxDelay;
+                    children[i].xAdded += children[i].xAddMax/children[i].xMaxDelay;
+                    if (children[i].xAdded > children[i].xAddMax){
+                        children[i].xWaited = children[i].xMaxDelay;
+                        children[i].xAdding = false;
+                        children[i].xAdded = children[i].xAddMax;
+                    }
+                } else {
+                    children[i].x -= children[i].xAddMax/children[i].xMaxDelay;
+                    children[i].xAdded -= children[i].xAddMax/children[i].xMaxDelay;
+                    if (children[i].xAdded < 0){
+                        children[i].xWaited = children[i].xMaxDelay;
+                        children[i].xAdding = true;
+                        children[i].xAdded = 0;
+                    }
                 }
             } else {
-                children[i].x -= children[i].xAddMax/children[i].xMaxDelay;
-                children[i].xAdded -= children[i].xAddMax/children[i].xMaxDelay;
-                if (children[i].xAdded < 0){
-                    children[i].xWaited = children[i].xMaxDelay;
-                    children[i].xAdding = true;
-                    children[i].xAdded = 0;
-                }
+                children[i].xWaited--
             }
-        } else {
-            children[i].xWaited--
-        }
 
-        if (children[i].yWaited < 0){
-            if (children[i].yAdding){
-                children[i].y += children[i].yAddMax/children[i].yMaxDelay;
-                children[i].yAdded += children[i].yAddMax/children[i].yMaxDelay;
-                if (children[i].yAdded > children[i].yAddMax){
-                    children[i].yWaited = children[i].yMaxDelay;
-                    children[i].yAdding = false;
-                    children[i].yAdded = children[i].yAddMax;
+            if (children[i].yWaited < 0){
+                if (children[i].yAdding){
+                    children[i].y += children[i].yAddMax/children[i].yMaxDelay;
+                    children[i].yAdded += children[i].yAddMax/children[i].yMaxDelay;
+                    if (children[i].yAdded > children[i].yAddMax){
+                        children[i].yWaited = children[i].yMaxDelay;
+                        children[i].yAdding = false;
+                        children[i].yAdded = children[i].yAddMax;
+                    }
+                } else {
+                    children[i].y -= children[i].yAddMax/children[i].yMaxDelay;
+                    children[i].yAdded -= children[i].yAddMax/children[i].yMaxDelay;
+                    if (children[i].yAdded < 0){
+                        children[i].yWaited = children[i].yMaxDelay;
+                        children[i].yAdding = true;
+                        children[i].yAdded = 0;
+                    }
                 }
             } else {
-                children[i].y -= children[i].yAddMax/children[i].yMaxDelay;
-                children[i].yAdded -= children[i].yAddMax/children[i].yMaxDelay;
-                if (children[i].yAdded < 0){
-                    children[i].yWaited = children[i].yMaxDelay;
-                    children[i].yAdding = true;
-                    children[i].yAdded = 0;
-                }
+                children[i].yWaited--;
             }
         } else {
-            children[i].yWaited--;
+            if (children[i].x < character.x){
+                // move left
+                children[i].x -= children[i].runningSpeed;
+            } else if (children[i].x > character.x){
+                // move right
+                children[i].x += children[i].runningSpeed;
+            }
+
+            if (children[i].y < character.y){
+                // move up
+                children[i].y -= children[i].runningSpeed;
+            } else if (children[i].y > character.y){
+                // move down
+                children[i].y += children[i].runningSpeed;
+            }
         }
 
         // off screen?
-        if(children[i].x>(cvs.width+100)){
+        if(children[i].x>(cvs.width+100) || children[i].y>(cvs.height+100) || children[i].y<-100){
             children[i].x = -100;
             children[i].y = -50+(Math.random()*cvs.height);
         }
@@ -240,7 +264,7 @@ function draw(){
             // collision detected
             children[i].runningSpeed *= 10;
             // add bread
-            size = Math.random();
+            size = 0.5+(Math.random()*0.5);
             let bread = {
                 x:children[i].x,
                 y:children[i].y,
