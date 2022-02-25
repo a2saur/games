@@ -15,7 +15,7 @@ function random_idx(list){
 }
 
 // Defining Images
-const root = "./Images/collection-"
+const root = "./Images/collection/"
 
 const charImg = new Image();
 charImg.src = root+"main-char.png";

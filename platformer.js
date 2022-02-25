@@ -20,7 +20,7 @@ kaboom({
     background: [0, 0, 0],
 })
   
-loadRoot('./Images/adventure-')
+loadRoot('./Images/adventure/')
 loadSprite('char', 'sprites.png', {
 	sliceX: 8,
 	sliceY: 1,

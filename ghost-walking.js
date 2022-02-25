@@ -8,16 +8,16 @@ const cNUMFRAMES = 2;
 
 // Defining Images
 const ghostR1 = new Image();
-ghostR1.src = "./Images/ghost-right-1.png";
+ghostR1.src = "./Images/ghost/right-1.png";
 
 const ghostR2 = new Image();
-ghostR2.src = "./Images/ghost-right-2.png";
+ghostR2.src = "./Images/ghost/right-2.png";
 
 const ghostL1 = new Image();
-ghostL1.src = "./Images/ghost-left-1.png";
+ghostL1.src = "./Images/ghost/left-1.png";
 
 const ghostL2 = new Image();
-ghostL2.src = "./Images/ghost-left-2.png";
+ghostL2.src = "./Images/ghost/left-2.png";
 
 // Defining Variables
 let player = {
