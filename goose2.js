@@ -258,6 +258,7 @@ function draw(){
         if(children[i].x>(cvs.width+100) || children[i].y>(cvs.height+100) || children[i].y<-100){
             children[i].x = -100;
             children[i].y = -50+(Math.random()*cvs.height);
+            children[i].runningSpeed = Math.random()*9;
         }
 
         if(collisions(character, children[i])){
