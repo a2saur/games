@@ -105,3 +105,27 @@ div {
     background-color: #00ff00;
     color:#000000;
 }
+
+/* Cards */
+.icons {
+    display:grid;
+    grid-template-columns: 24% 24% 24% 24%;
+    column-gap: 0.8%;
+    margin-left: 0.8%;
+    margin-top: 0.8%;
+}
+
+.icon {
+    width: 100%;
+}
+
+.icon img {
+    width: 100%;
+    object-fit: cover;
+}
+
+.icon:hover {
+    width:90%;
+    border: 1vw solid rgb(100, 255, 100);
+    box-shadow: 0 0 15px rgb(0, 0, 0);
+}
