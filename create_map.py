@@ -96,7 +96,7 @@ for x in range(map.shape[0]):
 
 # print(text_map)
 
-oldJS = open("collection.js", "r")
+oldJS = open("collection_2.js", "r")
 oldCode = oldJS.read().split("// *****")
 oldJS.close()
 
@@ -348,6 +348,6 @@ town_str += "]"
 # Putting together
 fullText = oldCode[0]+"\n"+map_str+"\n"+char_info_str+"\n"+item_info_str+town_str+"\n"+oldCode[2]
 
-newJS = open("collection_2.js", "w")
+newJS = open("collection_py.js", "w")
 newJS.write(fullText)
 newJS.close()
