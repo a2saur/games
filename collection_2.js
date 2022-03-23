@@ -327,7 +327,8 @@ class Speech {
             ctx.font = "15px Arial";
             ctx.fillStyle = "#fff"
             ctx.fillText(this.name, 70, 25)
-            ctx.fillText(this.all_lines[this.lines_set_idx][this.current_line_idx], 70, 45);
+            add_text(this.all_lines[this.lines_set_idx][this.current_line_idx], 70, 45, 200, "15px Arial", "#fff")
+            ctx.fillText();
         }
     }
 

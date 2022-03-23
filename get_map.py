@@ -5,6 +5,15 @@ file = open("collection_py.js")
 
 content = file.read().split("const cMAP = ")
 content2 = content[1].split("const cMAP_NUM = ")
+map_list = np.asarray(eval(content2[0]))
+
+# content = file.read().split("let town_locs = ")
+# content2 = content[1].split("const cBLOCK_WIDTH = 32;")
+# town_locs = eval(content2[0])
+# for loc_info in town_locs:
+#     loc_info[1]
+
+file.close()
 
 rColors = {
     "W":0,
@@ -25,7 +34,7 @@ bColors = {
     "B":150,
 }
 
-map_list = np.asarray(eval(content2[0]))
+
 colored_map = np.zeros((map_list.shape[0], map_list.shape[1], 3), dtype=np.uint8)
 for y in range(map_list.shape[0]):
     for x in range(map_list.shape[1]):

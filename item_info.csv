@@ -1,28 +1,31 @@
 Creature,Biome,Rarity,Price,Official Name,Item Image Name,Number of Images,Frame Wait
-Flower Bunny,G,,,Flower Bunny,,,
-Tomato Bunny,G,0.05,5,Tomato Bunny,tomato-bunny-,2,10
-Plant Turtle,G,,,,,,
-Butterfly Frog,G,,,Flying Frog,,,
-Bird Fruits,G,,,Pearot,,,
-Flower Mouse,G,,,,,,
-Flower Bed,G,,,,,,
-Swan Planter,GW,,,,,,
-Cat Plant,G,,,,,,
-Leaf Dragon,W,,,,,,
-Egg Plant,G,,,Egg Plant,,,
-Giant mouthed snail,G,,,,,,
-Marimo Algae,W,,,,,,
 Bagworm Moth Caterpillar,G,,,Catercabin,,,
-Leaf Sheep,G,,,,,,
-Mushroom Snail,G,,,,,,
-Water Dog,W,,,,,,
-Rune Clam,B,,,,,,
-Sea quill pen,W,,,Sea Quill,,,
-Sea Angel,W,,,Sea Angel,,,
-Snow Bird (Mountain Bluebird),M,,,,,,
-Snow Dog,M,,,,,,
-Ice Spider,M,,,,,,
+Bird Fruits,G,,,Pearot,,,
+Business Goose,G,0.005,50,Business Goose,business-goose-,4,5
+Butterfly Frog,G,0.001,100,Flying Frog,butterfly-frog-,10,4
+Cat Plant,G,,,,,,
 Crystal Horned Snake,C,,,,,,
-Urchins (On Crystal),C,,,,,,
-Iron Snail,V,,,Dragon Snail,,,
+Egg Plant,G,,,Egg Plant,,,
+Flower Bed,G,,,,,,
+Flower Bunny,G,0.025,10,Flower Bunny,flower-bunny-,2,10
+Flower Mouse,G,,,,,,
 Ghost Mantis,V,,,,,,
+Giant mouthed snail,G,,,,,,
+Ice Spider,M,,,,,,
+Iron Snail,V,,,Dragon Snail,,,
+Leaf Dragon,W,,,,,,
+Leaf Sheep,G,,,,,,
+Marimo Algae,W,0.0001,1000,Marimoss,marimo-algae-,7,3
+Mushroom Snail,G,,,,,,
+Plant Turtle,G,0.0005,250,Plant Turtle,plant-turtle,7,7
+Rune Clam,B,0.0003,500,Rune Clam,rune-clam-,13,3
+Sea Angel,W,,,Sea Angel,,,
+Sea quill pen,W,,,Sea Quill,,,
+Snow Bird (Mountain Bluebird),M,0.0003,500,Snow Bird,snow-bird-,11,5
+Snow Dog,M,,,,,,
+Swan Planter,GW,,,,,,
+Tomato Bunny,G,0.05,5,Tomato Bunny,tomato-bunny-,2,10
+Urchins (On Crystal),C,,,,,,
+Water Dog,W,,,,,,
+Glowing Frog,G,0.001,100,Glow Frog,glowing-frog-,4,7
+Shoop,G,0.0005,250,Shoop,shoop-,19,7
