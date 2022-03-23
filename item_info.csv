@@ -1,7 +1,7 @@
 Creature,Biome,Rarity,Price,Official Name,Item Image Name,Number of Images,Frame Wait
 Bagworm Moth Caterpillar,G,,,Catercabin,,,
 Bird Fruits,G,,,Pearot,,,
-Business Goose,G,0.005,50,Business Goose,business-goose-,4,5
+Business Goose,G,0.005,50,Business Goose,business-goose-,4,2
 Butterfly Frog,G,0.001,100,Flying Frog,butterfly-frog-,10,4
 Cat Plant,G,,,,,,
 Crystal Horned Snake,C,,,,,,
@@ -18,10 +18,10 @@ Leaf Sheep,G,,,,,,
 Marimo Algae,W,0.0001,1000,Marimoss,marimo-algae-,7,3
 Mushroom Snail,G,,,,,,
 Plant Turtle,G,0.0005,250,Plant Turtle,plant-turtle,7,7
-Rune Clam,B,0.0003,500,Rune Clam,rune-clam-,13,3
+Rune Clam,B,0.0003,500,Rune Clam,rune-clam-,13,1
 Sea Angel,W,,,Sea Angel,,,
 Sea quill pen,W,,,Sea Quill,,,
-Snow Bird (Mountain Bluebird),M,0.0003,500,Snow Bird,snow-bird-,11,5
+Snow Bird (Mountain Bluebird),M,0.0003,500,Snow Bird,snow-bird-,11,3
 Snow Dog,M,,,,,,
 Swan Planter,GW,,,,,,
 Tomato Bunny,G,0.05,5,Tomato Bunny,tomato-bunny-,2,10
