@@ -93,6 +93,25 @@ function remove_item(list, item){
     return new_list;
 }
 
+function remove_items(list, items){
+    let new_list = [];
+    let clear;
+    for (let i = 0; i < list.length; i++){
+        clear = true;
+        for (let j = 0; j < items.length; j++){
+            if (list[i] == items[j]) {
+                // don't add
+                clear = false;
+                break
+            }
+        }
+        if (clear) {
+            new_list.push(list[i])
+        }
+    }
+    return new_list;
+}
+
 function remove_idxs(list, idxs){
     let new_list = [];
     for (let i = 0; i < list.length; i++){
@@ -200,6 +219,8 @@ inHouseImg.src = root+"in-house.png";
 
 const snorkelImg = new Image();
 snorkelImg.src = root+"items/snorkel.png";
+const snorkelOnImg = new Image();
+snorkelOnImg.src = root+"items/snorkel-wear.png";
 const wingsImg = new Image();
 wingsImg.src = root+"items/wings.png";
 
@@ -263,7 +284,7 @@ TomatoBunny2Img.src = root+"tomato-bunny-2.png";
 const cCREATURE_INFO = {"Tomato Bunny":[[TomatoBunny1Img,TomatoBunny2Img,],10.0,0.05,5.0,],};
 
 const cSPAWNING_INFO = {'M': ['Tomato Bunny'], 'G': ['Tomato Bunny'], 'B': ['Tomato Bunny'], 'W': ['Tomato Bunny']};
-let town_locs = [["Gensaka",[10, 6],[['G', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G'], ['G', 'G', 'G', 'G', 'G', 'S', 'G', 'G', 'G', 'G'], ['G', 'H', 'G', 'G', 'G', 'G', 'G', 'H', 'G', 'G'], ['G', 'G', 'G', 'G', 'B', 'B', 'G', 'G', 'G', 'G'], ['G', 'H', 'G', 'B', 'W', 'W', 'B', 'H', 'G', 'G'], ['G', 'G', 'G', 'B', 'W', 'W', 'B', 'G', 'G', 'G'], ['G', 'H', 'G', 'G', 'B', 'B', 'G', 'H', 'G', 'G'], ['G', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G'], ['G', 'H', 'G', 'G', 'G', 'G', 'G', 'H', 'G', 'G'], ['G', 'G', 'G', 'G', 'X', 'G', 'G', 'G', 'G', 'G']],[[2, 1, 2, 2, 1, 0, 0, 2, 1, 1], [0, 1, 2, 2, 0, 0, 0, 1, 2, 1], [2, 1, 1, 1, 1, 2, 1, 3, 0, 1], [0, 1, 0, 1, 1, 1, 2, 1, 1, 2], [1, 2, 2, 0, 2, 1, 0, 0, 2, 0], [0, 1, 1, 1, 2, 0, 1, 0, 1, 2], [0, 4, 0, 0, 1, 0, 2, 3, 1, 1], [2, 0, 2, 0, 0, 2, 0, 1, 0, 2], [1, 4, 1, 2, 1, 1, 0, 0, 2, 0], [2, 0, 2, 0, 0, 1, 0, 1, 2, 2]],[['Swan', [2, 1]], ['Gardora', [2, 7]], ['Swan', [4, 1]], ['Swan', [4, 7]], ['Gardora', [6, 1]], ['Gardora', [6, 7]], ['Swan', [8, 1]], ['Gardora', [8, 7]]], false],["Ukan",[52, 78],[['G', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G'], ['G', 'G', 'G', 'G', 'G', 'S', 'G', 'G', 'G', 'G'], ['G', 'H', 'G', 'G', 'G', 'G', 'G', 'H', 'G', 'G'], ['G', 'G', 'G', 'G', 'B', 'B', 'G', 'G', 'G', 'G'], ['G', 'H', 'G', 'B', 'W', 'W', 'B', 'H', 'G', 'G'], ['G', 'G', 'G', 'B', 'W', 'W', 'B', 'G', 'G', 'G'], ['G', 'H', 'G', 'G', 'B', 'B', 'G', 'H', 'G', 'G'], ['G', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G'], ['G', 'H', 'G', 'G', 'G', 'G', 'G', 'H', 'G', 'G'], ['G', 'G', 'G', 'G', 'X', 'G', 'G', 'G', 'G', 'G']],[[1, 1, 1, 0, 1, 0, 1, 2, 1, 0], [2, 0, 1, 1, 1, 0, 2, 2, 0, 1], [0, 4, 0, 2, 1, 2, 1, 4, 2, 2], [1, 2, 0, 2, 0, 0, 0, 1, 1, 1], [0, 4, 0, 1, 1, 1, 2, 1, 1, 0], [1, 0, 1, 1, 2, 1, 2, 2, 2, 2], [0, 0, 1, 1, 2, 0, 2, 4, 1, 0], [2, 2, 0, 0, 1, 0, 0, 1, 2, 2], [0, 1, 2, 0, 1, 0, 2, 4, 0, 2], [0, 1, 2, 2, 0, 0, 2, 1, 0, 2]],[['Swan', [2, 1]], ['Swan', [2, 7]], ['Gardora', [4, 1]], ['Swan', [4, 7]], ['Gardora', [6, 1]], ['Swan', [6, 7]], ['Swan', [8, 1]], ['Swan', [8, 7]]], false],]
+let town_locs = [["Gensaka",[5, 5],[['G', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G'], ['G', 'G', 'G', 'G', 'G', 'S', 'G', 'G', 'G', 'G'], ['G', 'H', 'G', 'G', 'G', 'G', 'G', 'H', 'G', 'G'], ['G', 'G', 'G', 'G', 'B', 'B', 'G', 'G', 'G', 'G'], ['G', 'H', 'G', 'B', 'W', 'W', 'B', 'H', 'G', 'G'], ['G', 'G', 'G', 'B', 'W', 'W', 'B', 'G', 'G', 'G'], ['G', 'H', 'G', 'G', 'B', 'B', 'G', 'H', 'G', 'G'], ['G', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G'], ['G', 'H', 'G', 'G', 'G', 'G', 'G', 'H', 'G', 'G'], ['G', 'G', 'G', 'G', 'X', 'G', 'G', 'G', 'G', 'G']],[[2, 1, 2, 2, 1, 0, 0, 2, 1, 1], [0, 1, 2, 2, 0, 0, 0, 1, 2, 1], [2, 1, 1, 1, 1, 2, 1, 3, 0, 1], [0, 1, 0, 1, 1, 1, 2, 1, 1, 2], [1, 2, 2, 0, 2, 1, 0, 0, 2, 0], [0, 1, 1, 1, 2, 0, 1, 0, 1, 2], [0, 4, 0, 0, 1, 0, 2, 3, 1, 1], [2, 0, 2, 0, 0, 2, 0, 1, 0, 2], [1, 4, 1, 2, 1, 1, 0, 0, 2, 0], [2, 0, 2, 0, 0, 1, 0, 1, 2, 2]],[['Swan', [2, 1]], ['Gardora', [2, 7]], ['Swan', [4, 1]], ['Swan', [4, 7]], ['Gardora', [6, 1]], ['Gardora', [6, 7]], ['Swan', [8, 1]], ['Gardora', [8, 7]]], false],["Ukan",[52, 78],[['G', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G'], ['G', 'G', 'G', 'G', 'G', 'S', 'G', 'G', 'G', 'G'], ['G', 'H', 'G', 'G', 'G', 'G', 'G', 'H', 'G', 'G'], ['G', 'G', 'G', 'G', 'B', 'B', 'G', 'G', 'G', 'G'], ['G', 'H', 'G', 'B', 'W', 'W', 'B', 'H', 'G', 'G'], ['G', 'G', 'G', 'B', 'W', 'W', 'B', 'G', 'G', 'G'], ['G', 'H', 'G', 'G', 'B', 'B', 'G', 'H', 'G', 'G'], ['G', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G'], ['G', 'H', 'G', 'G', 'G', 'G', 'G', 'H', 'G', 'G'], ['G', 'G', 'G', 'G', 'X', 'G', 'G', 'G', 'G', 'G']],[[1, 1, 1, 0, 1, 0, 1, 2, 1, 0], [2, 0, 1, 1, 1, 0, 2, 2, 0, 1], [0, 4, 0, 2, 1, 2, 1, 4, 2, 2], [1, 2, 0, 2, 0, 0, 0, 1, 1, 1], [0, 4, 0, 1, 1, 1, 2, 1, 1, 0], [1, 0, 1, 1, 2, 1, 2, 2, 2, 2], [0, 0, 1, 1, 2, 0, 2, 4, 1, 0], [2, 2, 0, 0, 1, 0, 0, 1, 2, 2], [0, 1, 2, 0, 1, 0, 2, 4, 0, 2], [0, 1, 2, 2, 0, 0, 2, 1, 0, 2]],[['Swan', [2, 1]], ['Swan', [2, 7]], ['Gardora', [4, 1]], ['Swan', [4, 7]], ['Gardora', [6, 1]], ['Swan', [6, 7]], ['Swan', [8, 1]], ['Swan', [8, 7]]], false],]
 
 
 // *****
@@ -370,9 +391,16 @@ const cBLOCK_IMAGES_TOWNS = {
 
 // Defining Variables
 let player = new Sprite([charImg], 0, 128, 128);
+
 let player_map_pos = {
-    x:7,
-    y:7
+    x:randrange(cMAP[0].length),
+    y:randrange(cMAP.length),
+}
+while (cMAP[player_map_pos.y][player_map_pos.x] == "W"){
+    player_map_pos = {
+        x:randrange(cMAP[0].length),
+        y:randrange(cMAP.length),
+    }
 }
 let player_town_pos = {
     x:0,
@@ -395,8 +423,8 @@ let current_person;
 let shop_animation_idx;
 let shop_selection = "unselected";
 let shop_selection_idx = 0;
-let shop_options = ["Who are you?", "I wanna sell!", "What do you have in stock?", "Goodbye"];
-let shop_conversation = ["I am the shop keeper, Kotu.", "Any creatures you find, I will buy.", "Currently, we are not selling anything."]
+let shop_options = ["Goodbye", "Who are you?", "I wanna sell!", "What do you have in stock?"];
+let shop_conversation = ["I am the shop keeper, Kotu.", "Any creatures you find, I will buy.", "Currently, we are only selling the snorkel."]
 let shop_page = 0;
 let temp_info;
 let temp_idx;
@@ -406,14 +434,15 @@ let shop_selected_idxs = [];
 // item: image(0), cost(1), bought(2)
 let store_items = {
     "snorkel":[snorkelImg, 1000, false],
-    "wings":[wingsImg, 10000, false]
+    // "wings":[wingsImg, 10000, false]
 }
-let store_items_keys = ["snorkel", "wings"];
+let store_items_keys = ["snorkel"];
+let current_bought_store_items = [];
 
 // add town sprites
 for (let i=0; i < town_locs.length; i++) {
     // WIP ADD TOWN NAME AS NOTES + WAYPOINTS
-    temp_town = new Sprite([town1Img, town2Img, town3Img, town4Img], 1, ((town_locs[i][1][0]+1)*32)-player.x, ((town_locs[i][1][1]+1)*32)-player.y, undefined, town_locs[i][0]);
+    temp_town = new Sprite([town1Img, town2Img, town3Img, town4Img], 1, ((town_locs[i][1][0]*32)-(player_map_pos.x*32))+128, ((town_locs[i][1][1]*32)-(player_map_pos.y*32))+128, undefined, town_locs[i][0]);
     town_locs[i].push(temp_town);
 }
 
@@ -629,7 +658,7 @@ function direction(event){
                 shop_selection_idx++;
             } if (event.keyCode == 32){
                 // space - select
-                if (shop_selection_idx%shop_options.length == 0) {
+                if (shop_options[shop_selection_idx%shop_options.length] == "Who are you?") {
                     shop_selection = "conversation";
                     shop_selection_idx = 0;
                 } else if (shop_options[shop_selection_idx%shop_options.length] == "I wanna sell!") {
@@ -644,6 +673,7 @@ function direction(event){
                     shop_selection_idx = 0;
                     shop_page = 0;
                     shop_selected_idxs = [];
+                    current_bought_store_items = [];
                 } else if (shop_options[shop_selection_idx%shop_options.length] == "Goodbye") {
                     current_scene = "town";
                     player_town_pos.y += 1;
@@ -701,16 +731,18 @@ function direction(event){
                 if (store_items[store_items_keys[shop_selection_idx]][2]){
                     store_items[store_items_keys[shop_selection_idx]][2] = false;
                     shop_coins -= store_items[store_items_keys[shop_selection_idx]][1];
+                    current_bought_store_items = remove_item(current_bought_store_items, store_items_keys[shop_selection_idx]);
                 } else {
                     store_items[store_items_keys[shop_selection_idx]][2] = true;
                     shop_coins += store_items[store_items_keys[shop_selection_idx]][1];
+                    current_bought_store_items.push(store_items_keys[shop_selection_idx]);
                 }
             } if (event.keyCode == 13){
                 if (shop_coins <= coins){
                     coins -= shop_coins;
                     shop_selection = "unselected";
                     shop_selection_idx = 0;
-                    // WIP Remove bought items
+                    store_items_keys = remove_items(store_items_keys, current_bought_store_items);
                 } else {
                     alert("You don't have enough money");
                 }
@@ -889,6 +921,9 @@ function draw(){
             }
         }
         player.draw(frames);
+        if (cMAP[player_map_pos.y][player_map_pos.x] == "W"){
+            ctx.drawImage(snorkelOnImg, 128, 128);
+        }
 
         ctx.fillStyle = "#eef"
         ctx.fillRect(0, 288, 288, 320);
