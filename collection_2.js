@@ -987,7 +987,7 @@ function draw(){
             ctx.fillText("Items: "+creatures_caught.length.toString(), 120, 310);
             ctx.fillText("Coins: "+coins.toString(), 200, 310);
         } else if (shop_selection == "sell") {
-            // WIP
+            shop_page = parseInt(shop_selection_idx/72)
             ctx.fillStyle = "#eef"
             ctx.fillRect(0, 0, 288, 320);
             for (let y = 0; y < 8; y++){
@@ -1037,7 +1037,6 @@ function draw(){
             ctx.fillStyle = "#000"
             ctx.fillText("Total: "+shop_coins.toString(), 10, 25);
             ctx.fillText("|Buy|", 125, 25);
-            ctx.fillText("Page "+(shop_page+1).toString()+"/"+Math.ceil(creatures_caught.length/72), 205, 25);
             ctx.fillText("Coins: "+coins.toString(), 200, 310);
         }
     }
