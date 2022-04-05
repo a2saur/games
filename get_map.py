@@ -1,5 +1,6 @@
 import matplotlib.pyplot as plt
 import numpy as np
+from PIL import Image
 
 file = open("collection_py.js")
 
@@ -41,5 +42,6 @@ for y in range(map_list.shape[0]):
         colored_map[y, x, 0] = rColors[map_list[y, x]]
         colored_map[y, x, 1] = gColors[map_list[y, x]]
         colored_map[y, x, 2] = bColors[map_list[y, x]]
-plt.imshow(colored_map)
-plt.show()
+        
+im = Image.fromarray(colored_map)
+im.save("./Images/collection/items/map.png")

@@ -15,9 +15,9 @@ Ice Spider,M,,,,,,
 Iron Snail,V,,,Dragon Snail,,,
 Leaf Dragon,W,,,,,,
 Leaf Sheep,G,,,,,,
-Marimo Algae,W,0.0001,1000,Marimoss,marimo-algae-,7,3
+Marimo Algae,W,0.0001,1000,Marimoss,marimo-algae-,7,2
 Mushroom Snail,G,,,,,,
-Plant Turtle,G,0.0005,250,Plant Turtle,plant-turtle,7,7
+Plant Turtle,G,0.0005,250,Plant Turtle,plant-turtle-,7,7
 Rune Clam,B,0.0003,500,Rune Clam,rune-clam-,13,1
 Sea Angel,W,,,Sea Angel,,,
 Sea quill pen,W,,,Sea Quill,,,
@@ -27,5 +27,5 @@ Swan Planter,GW,,,,,,
 Tomato Bunny,G,0.05,5,Tomato Bunny,tomato-bunny-,2,10
 Urchins (On Crystal),C,,,,,,
 Water Dog,W,,,,,,
-Glowing Frog,G,0.001,100,Glow Frog,glowing-frog-,4,7
-Shoop,G,0.0005,250,Shoop,shoop-,19,7
+Glowing Frog,G,0.001,100,Glow Frog,glowing-frog-,4,3
+Shoop,G,0.0005,250,Shoop,shoop-,19,5
