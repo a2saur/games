@@ -223,6 +223,13 @@ const snorkelOnImg = new Image();
 snorkelOnImg.src = root+"items/snorkel-wear.png";
 const wingsImg = new Image();
 wingsImg.src = root+"items/wings.png";
+const mapItemImg = new Image();
+mapItemImg.src = root+"items/map-item.png";
+
+const openingImg1 = new Image();
+openingImg1.src = root+"items/opening-background.png";
+const openingImg2 = new Image();
+openingImg2.src = root+"items/opening-overlay-2.png";
 
 const mapImg = new Image();
 mapImg.src = root+"items/map.png";
@@ -421,7 +428,7 @@ let movement = "";
 let creature_type;
 let temp_creature;
 let creatures_caught = [];
-let current_scene = "main";
+let current_scene = "opening";
 let temp_town;
 let current_town_idx;
 let current_person;
@@ -440,13 +447,18 @@ let shop_selected_idxs = [];
 let store_items = {
     "Ondu (snorkel)":[snorkelImg, 1000, false],
     "Kort (map)":[wingsImg, 150, false],
-    "Leitis (landmarks)":[wingsImg, 150, false],
-    "Vengi (wings)":[wingsImg, 2500, false]
+    "Leitis (landmarks)":[mapItemImg, 150, false],
+    "Vengi (wings)":[mapItemImg, 2500, false]
 }
 let store_items_keys = ["Ondu (snorkel)", "Kort (map)", "Leitis (landmarks)", "Vengi (wings)"];
 let current_bought_store_items = [];
 let wing_selection;
 let diff;
+let opening_pos = {
+    x:-470,
+    y:-100,
+}
+let opening_colors = ["#000", "#112", "#334", "#556", "#778", "#99A", "#BBC", "#DDE", "#EEF", "#DDE", "#BBC", "#99A", "#778", "#556", "#334", "#112", "#000"];
 
 // add town sprites
 for (let i=0; i < town_locs.length; i++) {
@@ -462,7 +474,12 @@ function direction(event){
     // 65 66 67 68 69 70 71 72 73 74 75 76 77 78 79 80 81
     // r  s  t  u  v  w  x  y  z
     // 82 83 84 85 86 87 88 89 90
-    if (current_scene == "town"){
+    if (current_scene == "opening"){
+        if (event.keyCode == 32){
+            // space - select
+            current_scene = "main";
+        }
+    } else if (current_scene == "town"){
         if (event.keyCode == 38){
             //up
             if (player_town_pos.y-1 >= 0){
@@ -866,7 +883,31 @@ function draw(){
     
     frames++;
 
-    if (current_scene == "town"){
+    if (current_scene == "opening"){
+        ctx.fillStyle = "#000";
+    ctx.fillRect(0, 0, 288, 288);
+    
+    frames++;
+    ctx.drawImage(openingImg1, 0, 0, 4096/10, 3072/10);
+    ctx.drawImage(openingImg2, opening_pos.x, opening_pos.y, 4096/5, 3072/5);
+
+    opening_pos.x += 4.7/2;
+    opening_pos.y += 1/2;
+    
+    if (opening_pos.x == 0 || opening_pos.y == 0){
+        opening_pos = {
+            x:-470,
+            y:-100,
+        }
+    }
+
+    ctx.fillStyle = "#EEF";
+    ctx.fillRect(0, 288, 288, 32);
+
+    ctx.font = "15px Arial";
+    ctx.fillStyle = opening_colors[parseInt(frames/3)%opening_colors.length];
+    ctx.fillText("Collection Game - Press Space to Start", 10, 310);
+    } else if (current_scene == "town"){
         // draw background
         counter = 0;
         temp_y = 0;
