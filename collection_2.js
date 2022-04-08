@@ -124,6 +124,14 @@ function remove_idxs(list, idxs){
     return new_list;
 }
 
+function str_bool(str){
+    if (str == "true"){
+        return true;
+    } else if (str == "false"){
+        return false;
+    }
+}
+
 // Defining Images
 const root = "./Images/collection/"
 
@@ -446,9 +454,9 @@ let shop_selected_idxs = [];
 // item: image(0), cost(1), bought(2)
 let store_items = {
     "Ondu (snorkel)":[snorkelImg, 1000, false],
-    "Kort (map)":[wingsImg, 150, false],
+    "Kort (map)":[mapItemImg, 150, false],
     "Leitis (landmarks)":[mapItemImg, 150, false],
-    "Vengi (wings)":[mapItemImg, 2500, false]
+    "Vengi (wings)":[wingsImg, 2500, false]
 }
 let store_items_keys = ["Ondu (snorkel)", "Kort (map)", "Leitis (landmarks)", "Vengi (wings)"];
 let current_bought_store_items = [];
@@ -459,6 +467,19 @@ let opening_pos = {
     y:-100,
 }
 let opening_colors = ["#000", "#112", "#334", "#556", "#778", "#99A", "#BBC", "#DDE", "#EEF", "#DDE", "#BBC", "#99A", "#778", "#556", "#334", "#112", "#000"];
+
+if (localStorage.getItem("collection-coins") != null && localStorage.getItem("collection-coins") != "null"){
+    coins = parseInt(localStorage.getItem("collection-coins"));
+}
+if (localStorage.getItem("collection-creatures") != null && localStorage.getItem("collection-creatures") != "null"){
+    creatures_caught = localStorage.getItem("collection-creatures").split(",");
+}
+
+for (let i = 0; i < store_items_keys.length; i++){
+    if (localStorage.getItem("collection-"+store_items_keys[i]) != null && localStorage.getItem("collection-"+store_items_keys[i]) != "null" && localStorage.getItem("collection-"+store_items_keys[i]) != undefined){
+        store_items[store_items_keys[i]][2] = str_bool(localStorage.getItem("collection-"+store_items_keys[i]));
+    }
+}
 
 // add town sprites
 for (let i=0; i < town_locs.length; i++) {
@@ -673,7 +694,7 @@ function direction(event){
             } else {
                 alert("YOU CANNOT PASS");
             }
-        }  if (event.keyCode == 77){
+        } if (event.keyCode == 77){
             // m - map
             if (store_items["Kort (map)"][2]){
                 current_scene = "map";
@@ -872,6 +893,21 @@ function direction(event){
             wing_selection = 0;
         } else if (wing_selection < 0){
             wing_selection = town_locs.length-1;
+        }
+    } if (event.keyCode == 82){
+        // r - remove save
+        // WIP - OPTION TO CHANGE MAP (KEEP COINS ETC)
+        // WIP - "ARE YOU SURE YOU WANT TO RESET"
+        if (confirm("Are you sure you want to reset your coins and stash?")){
+            localStorage.setItem("collection-coins", "null");
+            localStorage.setItem("collection-creatures", "null");
+            localStorage.setItem("collection-items", "null")
+            for (let i = 0; i < store_items_keys.length; i++){
+                localStorage.setItem("collection-"+store_items_keys[i], "null");
+            }
+            clearInterval(game);
+            // alert("RESET");
+            location.reload();
         }
     }
 }
@@ -1209,6 +1245,14 @@ function draw(){
                 add_text(town_locs[l][0].toString(), 105, (32*l)+32, undefined, undefined, "#000");
             }
         }
+    }
+
+    // SAVE - coins, creatures, items
+    // OPTIONAL SAVE - map, position
+    localStorage.setItem("collection-coins", coins);
+    localStorage.setItem("collection-creatures", creatures_caught);
+    for (let i = 0; i < store_items_keys.length; i++){
+        localStorage.setItem("collection-"+store_items_keys[i], store_items[store_items_keys[i]][2]);
     }
 }
 
