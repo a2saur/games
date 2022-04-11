@@ -1,31 +1,38 @@
-Creature,Biome,Rarity,Price,Official Name,Item Image Name,Number of Images,Frame Wait
-Bagworm Moth Caterpillar,G,,,Catercabin,,,
-Bird Fruits,G,,,Pearot,,,
-Business Goose,G,0.005,50,Business Goose,business-goose-,4,2
-Butterfly Frog,G,0.001,100,Flying Frog,butterfly-frog-,10,4
-Cat Plant,G,,,,,,
-Crystal Horned Snake,C,,,,,,
-Egg Plant,G,,,Egg Plant,,,
-Flower Bed,G,,,,,,
-Flower Bunny,G,0.025,10,Flower Bunny,flower-bunny-,2,10
-Flower Mouse,G,,,,,,
-Ghost Mantis,V,,,,,,
-Giant mouthed snail,G,,,,,,
-Ice Spider,M,,,,,,
-Iron Snail,V,,,Dragon Snail,,,
-Leaf Dragon,W,,,,,,
-Leaf Sheep,G,,,,,,
-Marimo Algae,W,0.0001,1000,Marimoss,marimo-algae-,7,2
-Mushroom Snail,G,,,,,,
-Plant Turtle,G,0.0005,250,Plant Turtle,plant-turtle-,7,7
-Rune Clam,B,0.0003,500,Rune Clam,rune-clam-,13,1
-Sea Angel,W,,,Sea Angel,,,
-Sea quill pen,W,,,Sea Quill,,,
-Snow Bird (Mountain Bluebird),M,0.0003,500,Snow Bird,snow-bird-,11,3
-Snow Dog,M,,,,,,
-Swan Planter,GW,,,,,,
-Tomato Bunny,G,0.05,5,Tomato Bunny,tomato-bunny-,2,10
-Urchins (On Crystal),C,,,,,,
-Water Dog,W,,,,,,
-Glowing Frog,G,0.001,100,Glow Frog,glowing-frog-,4,3
-Shoop,G,0.0005,250,Shoop,shoop-,19,5
+Creature,Biome,Rarity,Price,Official Name,Item Image Name,Number of Images,Frame Wait,A very round ball of algae
+Bagworm Moth Caterpillar,G,,,Catercabin,,,,
+Bird Fruits,G,,,Pearot,,,,
+Business Goose,G,0.005,50,Business Goose,business-goose-,4,2,A very nice looking goose
+Butterfly Frog,G,0.001,100,Flying Frog,butterfly-frog-,10,4,A frog that can fly
+Cat Plant,G,,,,,,,
+Crystal Horned Snake,C,,,,,,,
+Egg Plant,G,,,Egg Plant,,,,
+Flower Bed,G,,,,,,,
+Flower Bunny,G,0.025,10,Flower Bunny,flower-bunny-,2,10,A bunny with a flower on it's head
+Flower Mouse,G,,,,,,,
+Ghost Mantis,V,,,,,,,
+Giant mouthed snail,G,,,,,,,
+Ice Spider,M,,,,,,,
+Iron Snail,V,,,Dragon Snail,,,,
+Leaf Dragon,W,,,,,,,
+Leaf Sheep,G,,,,,,,
+Marimo Algae,W,0.0001,1000,Marimoss,marimo-algae-,7,2,A very round ball of algae
+Mushroom Snail,G,,,,,,,
+Plant Turtle,G,0.0005,250,Plant Turtle,plant-turtle-,7,7,A turtle with a little biome on its back
+Rune Clam,B,0.0003,500,Rune Clam,rune-clam-,13,1,A clam with runes on it
+Sea Angel,W,,,Sea Angel,,,,
+Sea quill pen,W,,,Sea Quill,,,,
+Snow Bird (Mountain Bluebird),M,0.0003,500,Snow Bird,snow-bird-,11,3,A pretty blue bird
+Snow Dog,M,,,,,,,
+Swan Planter,GW,,,,,,,
+Tomato Bunny,G,0.05,5,Tomato Bunny,tomato-bunny-,2,10,A bunny disguised as a tomato
+Urchins (On Crystal),C,,,,,,,
+Water Dog,W,,,,,,,
+Glowing Frog,G,0.001,100,Glow Frog,glowing-frog-,4,3,A glowing frog
+Shoop,G,0.0005,250,Shoop,shoop-,19,5,A shoop!
+Skeletal Flower,G,0.0003,500,Skeletal Flower,skeletal-flower-,12,1,A flower that becomes translucent
+Land Shark,B,0.001,100,Land Shark,land-shark-,2,2,"A shark that, like seals, hangs out on beaches (it's pretty harmless)"
+Snow Cat,M,0.0003,500,Snow Cat,snow-cat-,17,2,"A cat that likes to lay in the snow, it blends in very well!"
+Coin Frog,GB,0.001,150,Coin Frog,coin-frog-,9,1,This frog collects coins and holds them in its mouth. Perhaps its trying to start a business?
+Sea Bunny,W,0.025,10,Sea Bunny,sea-bunny-,2,10,This is a bunny looking sea creature
+Fire Fox,G,0.0003,500,Fire Fox,fire-fox-,6,1,This fox has fire in its tail to help regulate temperature
+Plant Swan,GW,0.0005,250,Plant Swan,plant-swan-,2,2,This swan grows plants on its back

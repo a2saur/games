@@ -125,7 +125,7 @@ for item in df["Official Name"]:
     all_item_info[item] = [[]]
     item_info_str += "\n"
     item_info = df.loc[df["Official Name"]==item].values.tolist()[0]
-    # Creature(0) Biome(1) Rarity(2) Price(3) Official Name(4) Item Image Name(5) Number of Images(6) Frame Wait(7)
+    # Creature(0) Biome(1) Rarity(2) Price(3) Official Name(4) Item Image Name(5) Number of Images(6) Frame Wait(7) Description (8)
     # defining images
     for x in range(1, int(item_info[6])+1):
         item_image_var_name = merge(item_info[4])+str(x)
@@ -142,6 +142,7 @@ for item in df["Official Name"]:
     all_item_info[item].append(item_info[7])
     all_item_info[item].append(item_info[2])
     all_item_info[item].append(item_info[3])
+    all_item_info[item].append(item_info[8])
     # spawning
     for biome in item_info[1]:
         all_item_spawning[biome].append(item)

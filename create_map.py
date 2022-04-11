@@ -237,11 +237,12 @@ all_item_spawning = {
     "B":[],
     "W":[],
 }
+extra_str = "let creatures_discovered = {\n"
 for item in df["Official Name"]:
     all_item_info[item] = [[]]
     item_info_str += "\n"
     item_info = df.loc[df["Official Name"]==item].values.tolist()[0]
-    # Creature(0) Biome(1) Rarity(2) Price(3) Official Name(4) Item Image Name(5) Number of Images(6) Frame Wait(7)
+    # Creature(0) Biome(1) Rarity(2) Price(3) Official Name(4) Item Image Name(5) Number of Images(6) Frame Wait(7) Description (8)
     # defining images
     for x in range(1, int(item_info[6])+1):
         item_image_var_name = merge(item_info[4])+str(x)+"Img"
@@ -258,9 +259,15 @@ for item in df["Official Name"]:
     all_item_info[item].append(item_info[7])
     all_item_info[item].append(item_info[2])
     all_item_info[item].append(item_info[3])
+    all_item_info[item].append(str("\""+item_info[8]+"\""))
     # spawning
     for biome in item_info[1]:
         all_item_spawning[biome].append(item)
+    
+    extra_str += "\""
+    extra_str += item_info[4]
+    extra_str += "\":false,\n"
+extra_str += "}"
 
 item_info_str += "\n\nconst cCREATURE_INFO = "
 item_info_str += dictionary_to_str(all_item_info)
@@ -346,7 +353,7 @@ for i in range(cNUM_TOWNS):
 town_str += "]"
 
 # Putting together
-fullText = oldCode[0]+"\n"+map_str+"\n"+char_info_str+"\n"+item_info_str+town_str+"\n"+oldCode[2]
+fullText = oldCode[0]+"\n"+map_str+"\n"+char_info_str+"\n"+item_info_str+town_str+"\n"+extra_str+"\n"+oldCode[2]
 
 newJS = open("collection_py.js", "w")
 newJS.write(fullText)
