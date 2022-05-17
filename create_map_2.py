@@ -272,7 +272,7 @@ for item in df["Official Name"]:
         all_item_info[item][0].append(item_image_var_name)
     # creature info
     all_item_info[item].append(item_info[7])
-    all_item_info[item].append(item_info[2])
+    all_item_info[item].append(item_info[2]*10)
     all_item_info[item].append(item_info[3])
     all_item_info[item].append(str("\""+item_info[8]+"\""))
     # spawning

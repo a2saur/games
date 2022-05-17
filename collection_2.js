@@ -642,6 +642,7 @@ let book_page;
 let book_selection_idx;
 // let wearing_clothes = [];
 let wardrobe_scene = false;
+let testing = false;
 
 if (localStorage.getItem("collection-coins") != null && localStorage.getItem("collection-coins") != "null"){
     coins = parseInt(localStorage.getItem("collection-coins"));
@@ -1249,6 +1250,12 @@ function direction(event){
             shop_page = 0;
             shop_selection_idx = 0;
             temp_idx = 0;
+        } 
+        // test keys
+        if (event.keyCode == 65){
+            testing = true;
+        } if (event.keyCode == 50 && testing){
+            document.write("R3:CTYXARAEBAEASUEDLLR")
         }
     }
 }

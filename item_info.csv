@@ -1,4 +1,4 @@
-Creature,Biome,Rarity,Price,Official Name,Item Image Name,Number of Images,Frame Wait,A very round ball of algae
+Creature,Biome,Rarity,Price,Official Name,Item Image Name,Number of Images,Frame Wait,Description
 Bagworm Moth Caterpillar,G,,,Catercabin,,,,
 Bird Fruits,G,,,Pearot,,,,
 Business Goose,G,0.005,50,Business Goose,business-goose-,4,2,A very nice looking goose
@@ -36,3 +36,12 @@ Coin Frog,GB,0.001,150,Coin Frog,coin-frog-,9,1,This frog collects coins and hol
 Sea Bunny,W,0.025,10,Sea Bunny,sea-bunny-,2,10,This is a bunny looking sea creature
 Fire Fox,G,0.0003,500,Fire Fox,fire-fox-,6,1,This fox has fire in its tail to help regulate temperature
 Plant Swan,GW,0.0005,250,Plant Swan,plant-swan-,2,2,This swan grows plants on its back
+Plated Lobster,WB,0.0001,1000,Gyltimar,plated-lobster-,9,1,"This lobster grows a plate of gold on its back. While it does offer protection, this also makes it valuable"
+Peacock Dog,G,0.001,100,Pafu Dog,peacock-dog-,9,2,This dog has a colorful tail that it leaves spread out to attract a partner
+Grain Flamingo,GB,0.001,100,Korngo,grain-flamingo-,4,3,This flamingo has a tail that looks like grain to attract prey
+Galaxy Whale,W,0.00005,5000,Starnavalur,galaxy-whale-,6,1,This is a mythical whale with the starry sky on its belly. It's said that good things come to those that see it
+Leaf Snake,G,0.0003,500,Laufsnak,leaf-snake-,41,1,This snake has a leaf shaped tail to attract prey
+Turnip,G,0.0005,250,Rofa,turnip-,51,1,This creature looks like a turnip
+Firefly,GWBM,0.0003,500,Flowerfly,firefly-,13,2,This is a shiny firefly that carries a flower to relax and nap on
+Shell Cat,B,0.001,100,Skottu,shell-cat-,4,3,This cat wears a shell on its head and splashes water on itself to keep cool and not sunburned while looking for crabs and other food
+Wing Pig,GM,0.0003,500,Venvin,wing-pig-,2,5,This pig has winged ears and tail
