@@ -1361,6 +1361,8 @@ document.addEventListener("mousemove", function(e) {
 });
 
 document.addEventListener("mousedown", function(e) { 
+    mouse_pos.x = e.x-cvs.getBoundingClientRect().left;
+    mouse_pos.y = e.y-cvs.getBoundingClientRect().top;
     for (let i = 0; i < buttons.length; i++){
         buttons[i].is_clicked(mouse_pos.x, mouse_pos.y);
     }
