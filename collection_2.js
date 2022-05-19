@@ -1368,6 +1368,14 @@ document.addEventListener("mousedown", function(e) {
     }
 });
 
+document.addEventListener("touchstart", function(e) { 
+    mouse_pos.x = e.touches[0].pageX-cvs.getBoundingClientRect().left;
+    mouse_pos.y = e.touches[0].pageY-cvs.getBoundingClientRect().top;
+    for (let i = 0; i < buttons.length; i++){
+        buttons[i].is_clicked(mouse_pos.x, mouse_pos.y);
+    }
+});
+
 document.addEventListener("mouseup", function(e) {
     for (let i = 0; i < buttons.length; i++){
         buttons[i].clicked_on = false;
