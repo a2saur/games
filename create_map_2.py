@@ -103,7 +103,7 @@ for x in range(map.shape[0]):
 print("Created text map")
 # print(text_map)
 
-oldJS = open("collection_2.js", "r")
+oldJS = open("collection_3.js", "r")
 oldCode = oldJS.read().split("// *****")
 oldJS.close()
 
