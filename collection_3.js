@@ -417,6 +417,16 @@ wardrobeButtonImg.src = root+"wardrobe-button.png";
 const bookButtonImg = new Image();
 bookButtonImg.src = root+"book-button.png";
 
+const soundOnImg = new Image();
+soundOnImg.src = root+"sound_on.png";
+const soundOffImg = new Image();
+soundOffImg.src = root+"sound_off.png";
+
+const musicOnImg = new Image();
+musicOnImg.src = root+"music_on.png";
+const musicOffImg = new Image();
+musicOffImg.src = root+"music_off.png";
+
 const caveImage = new Image();
 caveImage.src = root+"sp-select-button.png";
 
@@ -561,12 +571,13 @@ const cBLOCK_WIDTH = 32;
 const cBLOCK_HEIGHT = 32;
 
 class Button {
-    constructor(image, clicked_image, x, y){
+    constructor(image, clicked_image, x, y, one_click=true){
         this.image = image;
         this.clicked_image = clicked_image;
         this.x = x;
         this.y = y;
         this.clicked_on = false;
+        this.one_click = one_click;
     }
 
     is_clicked(mouseX, mouseY){
@@ -832,8 +843,10 @@ let clothes_button = new Button(wardrobeButtonImg, wardrobeButtonImg, 0, 320);
 let map_button = new Button(mapItemImg, mapItemImg, 32, 320);
 let wings_button = new Button(wingsImg, wingsImg, 0, 352);
 let book_button = new Button(bookButtonImg, bookButtonImg, 32, 352);
+
+
 let buttons = [up_button, down_button, left_button, right_button, select_button, sp_select_button, reset_button,
-    clothes_button, map_button, wings_button, book_button
+    clothes_button, map_button, wings_button, book_button,
 ];
 let mouse_pos = {
     x:0,
@@ -851,39 +864,91 @@ let sound_start = 0;
 let sound_on = true;
 let music_on = true;
 
-if (localStorage.getItem("collection-coins") != null && localStorage.getItem("collection-coins") != "null"){
-    coins = parseInt(localStorage.getItem("collection-coins"));
+let save_text = localStorage.getItem("collection_save");
+// document.write(save_text)
+
+if (save_text != null && save_text != ""){
+    temp = save_text.split("|");
+
+    player_map_pos.x = parseInt(temp[0].split(",")[0]);
+    player_map_pos.y = parseInt(temp[0].split(",")[1]);
+
+    coins = parseInt(temp[1]);
+
+    creatures_caught = temp[2].split(",");
+
+    if (temp[3].length > 0){
+        for (let i = 0; i < temp[3].split(",").length; i++){
+            creatures_discovered[temp[3].split(",")[i]] = true;
+        }
+    }
+
+    music_on = str_bool(temp[4]);
+    sound_on = str_bool(temp[5]);
+
+    if (temp[6].length > 0){
+        for (let i = 0; i < temp[6].split(",").length; i++){
+            store_items[temp[6].split(",")[i]][2] = true;
+        }
+    }
+
+    if (temp[7].length > 0){
+        for (let i = 0; i < temp[7].split(",").length; i++){
+            sky_clothes_info[temp[7].split(",")[i]][2] = true;
+        }
+    }
 }
-if (localStorage.getItem("collection-creatures") != null && localStorage.getItem("collection-creatures") != "null"){
-    creatures_caught = localStorage.getItem("collection-creatures").split(",");
+
+let music_button;
+if (music_on){
+    music_button = new Button(musicOnImg, musicOnImg, 32, 384);
+} else {
+    music_button = new Button(musicOffImg, musicOffImg, 32, 384);
 }
-// if (localStorage.getItem("collection-clothes") != null && localStorage.getItem("collection-clothes") != "null"){
-//     wearing_clothes = localStorage.getItem("collection-clothes").split(",");
+buttons.push(music_button);
+
+
+let sound_button;
+if (sound_on){
+    sound_button = new Button(soundOnImg, soundOnImg, 0, 384);
+} else {
+    sound_button = new Button(soundOffImg, soundOffImg, 0, 384);
+}
+buttons.push(sound_button);
+
+// if (localStorage.getItem("collection-coins") != null && localStorage.getItem("collection-coins") != "null"){
+//     coins = parseInt(localStorage.getItem("collection-coins"));
+// }
+// if (localStorage.getItem("collection-creatures") != null && localStorage.getItem("collection-creatures") != "null"){
+//     creatures_caught = localStorage.getItem("collection-creatures").split(",");
+// }
+// // if (localStorage.getItem("collection-clothes") != null && localStorage.getItem("collection-clothes") != "null"){
+// //     wearing_clothes = localStorage.getItem("collection-clothes").split(",");
+// // }
+
+// for (let i = 0; i < store_items_keys.length; i++){
+//     if (localStorage.getItem("collection-"+store_items_keys[i]) != null && localStorage.getItem("collection-"+store_items_keys[i]) != "null" && localStorage.getItem("collection-"+store_items_keys[i]) != undefined){
+//         store_items[store_items_keys[i]][2] = str_bool(localStorage.getItem("collection-"+store_items_keys[i]));
+//         if (store_items[store_items_keys[i]][2]){
+//             store_items_keys = remove_item(store_items_keys, store_items_keys[i]);
+//         }
+//     }
 // }
 
-for (let i = 0; i < store_items_keys.length; i++){
-    if (localStorage.getItem("collection-"+store_items_keys[i]) != null && localStorage.getItem("collection-"+store_items_keys[i]) != "null" && localStorage.getItem("collection-"+store_items_keys[i]) != undefined){
-        store_items[store_items_keys[i]][2] = str_bool(localStorage.getItem("collection-"+store_items_keys[i]));
-        if (store_items[store_items_keys[i]][2]){
-            store_items_keys = remove_item(store_items_keys, store_items_keys[i]);
-        }
-    }
-}
+// for (let i = 0; i < sky_clothes_info_keys.length; i++){
+//     if (localStorage.getItem("collection-"+sky_clothes_info_keys[i]) != null && localStorage.getItem("collection-"+sky_clothes_info_keys[i]) != "null" && localStorage.getItem("collection-"+sky_clothes_info_keys[i]) != undefined){
+//         sky_clothes_info[sky_clothes_info_keys[i]][2] = str_bool(localStorage.getItem("collection-"+sky_clothes_info_keys[i]));
+//         if (sky_clothes_info[sky_clothes_info_keys[i]][2]){
+//             sky_clothes_info_keys = remove_item(sky_clothes_info_keys, sky_clothes_info_keys[i]);
+//         }
+//     }
+// }
 
-for (let i = 0; i < sky_clothes_info_keys.length; i++){
-    if (localStorage.getItem("collection-"+sky_clothes_info_keys[i]) != null && localStorage.getItem("collection-"+sky_clothes_info_keys[i]) != "null" && localStorage.getItem("collection-"+sky_clothes_info_keys[i]) != undefined){
-        sky_clothes_info[sky_clothes_info_keys[i]][2] = str_bool(localStorage.getItem("collection-"+sky_clothes_info_keys[i]));
-        if (sky_clothes_info[sky_clothes_info_keys[i]][2]){
-            sky_clothes_info_keys = remove_item(sky_clothes_info_keys, sky_clothes_info_keys[i]);
-        }
-    }
-}
-
-for (let i = 0; i < all_creatures.length; i++){
-    if (localStorage.getItem("collection-"+all_creatures[i]) != null && localStorage.getItem("collection-"+all_creatures[i]) != "null" && localStorage.getItem("collection-"+all_creatures[i]) != undefined){
-        creatures_discovered[all_creatures[i]] = str_bool(localStorage.getItem("collection-"+all_creatures[i]));
-    }
-}
+// for (let i = 0; i < all_creatures.length; i++){
+//     if (localStorage.getItem("collection-"+all_creatures[i]) != null && localStorage.getItem("collection-"+all_creatures[i]) != "null" && localStorage.getItem("collection-"+all_creatures[i]) != undefined){
+//         creatures_discovered[all_creatures[i]] = str_bool(localStorage.getItem("collection-"+all_creatures[i]));
+//     }
+// }
 
 // add town sprites
 for (let i=0; i < town_locs.length; i++) {
@@ -954,6 +1019,28 @@ document.addEventListener("mouseup", function(e) {
 // Draw
 function draw(){
     // Button actions
+    if (sound_button.is_down()){
+        if (sound_on){
+            sound_on = false;
+            sound_button.image = soundOffImg;
+            sound_button.clicked_image = soundOffImg;
+        } else {
+            sound_on = true;
+            sound_button.image = soundOnImg;
+            sound_button.clicked_image = soundOnImg;
+        }
+    }
+    if (music_button.is_down()){
+        if (music_on){
+            music_on = false;
+            music_button.image = musicOffImg;
+            music_button.clicked_image = musicOffImg;
+        } else {
+            music_on = true;
+            music_button.image = musicOnImg;
+            music_button.clicked_image = musicOnImg;
+        }
+    }
     if (wardrobe_scene){
         if (keyCode == 67 || keyCode == 13 || sp_select_button.is_down() || clothes_button.is_down()){
             wardrobe_scene = false;
@@ -1247,6 +1334,9 @@ function draw(){
                 // m - map
                 if (store_items["Kort (map)"][2]){
                     current_scene = "map";
+                    for (let i = 0; i < buttons.length; i++){
+                        buttons[i].clicked_on = false;
+                    }
                 } else {
                     alert("You don\'t have a map");
                     for (let i = 0; i < buttons.length; i++){
@@ -1258,6 +1348,9 @@ function draw(){
                 // w - wings
                 if (store_items["Vengi (wings)"][2]){
                     current_scene = "wings";
+                    for (let i = 0; i < buttons.length; i++){
+                        buttons[i].clicked_on = false;
+                    }
                     wing_selection = 0;
                 } else {
                     alert("You don\'t have wings");
@@ -1272,6 +1365,9 @@ function draw(){
                 book_page = 0;
                 book_selection_idx = -1;
                 temp_idx = 0;
+                for (let i = 0; i < buttons.length; i++){
+                    buttons[i].clicked_on = false;
+                }
             }
         } else if (current_scene == "shop"){
             if (shop_selection == "unselected"){
@@ -1388,8 +1484,13 @@ function draw(){
                 }
             }
         } else if (current_scene == "map"){
-            // m - map
-            current_scene = "main";
+            if (keyCode == 77 || map_button.is_down()){
+                // m - map
+                current_scene = "main";
+                for (let i = 0; i < buttons.length; i++){
+                    buttons[i].clicked_on = false;
+                }
+            }
         } else if (current_scene == "wings"){
             if (keyCode == 38 || up_button.is_down()){
                 // up
@@ -1400,6 +1501,9 @@ function draw(){
             } else if (keyCode == 32 || select_button.is_down()){
                 // space - select
                 current_scene = "main";
+                for (let i = 0; i < buttons.length; i++){
+                    buttons[i].clicked_on = false;
+                }
                 // Y MOVE
                 diff = Math.abs(player_map_pos.y-town_locs[wing_selection][1][1]);
                 if (town_locs[wing_selection][1][1] < player_map_pos.y){
@@ -1456,6 +1560,9 @@ function draw(){
             } if (keyCode == 87 || wings_button.is_down()){
                 // w - wings
                 current_scene = "main";
+                for (let i = 0; i < buttons.length; i++){
+                    buttons[i].clicked_on = false;
+                }
             }
             if (wing_selection >= town_locs.length){
                 wing_selection = 0;
@@ -1466,6 +1573,9 @@ function draw(){
             if (keyCode == 66 || book_button.is_down()){
                 // b - book
                 current_scene = "main";
+                for (let i = 0; i < buttons.length; i++){
+                    buttons[i].clicked_on = false;
+                }
             } if (keyCode == 38 || up_button.is_down()){
                 // up
                 book_selection_idx -= 7;
@@ -1577,22 +1687,10 @@ function draw(){
             // WIP - OPTION TO CHANGE MAP (KEEP COINS ETC)
             // WIP - "ARE YOU SURE YOU WANT TO RESET"
             if (confirm("Are you sure you want to reset your coins and stash?")){
-                localStorage.setItem("collection-coins", "null");
-                localStorage.setItem("collection-creatures", "null");
-                localStorage.setItem("collection-items", "null")
-                localStorage.setItem("collection-clothes", "null")
-                for (let i = 0; i < store_items_keys.length; i++){
-                    localStorage.setItem("collection-"+store_items_keys[i], "null");
-                }
-                for (let i = 0; i < Object.keys(sky_clothes_info).length; i++){
-                    localStorage.setItem("collection-"+Object.keys(sky_clothes_info)[i], "null");
-                }
-                for (let i = 0; i < all_creatures.length; i++){
-                    localStorage.setItem("collection-"+all_creatures[i], "null");
-                }
+                localStorage.setItem("collection_save", "");
                 clearInterval(game);
-                // alert("RESET");
                 location.reload();
+                return;
             }
             for (let i = 0; i < buttons.length; i++){
                 buttons[i].clicked_on = false;
@@ -2208,20 +2306,81 @@ function draw(){
 
     // SAVE - coins, creatures, items
     // OPTIONAL SAVE - map, position
-    localStorage.setItem("collection-coins", coins);
-    localStorage.setItem("collection-creatures", creatures_caught);
-    // localStorage.setItem("collection-clothes", wearing_clothes);
-    for (let i = 0; i < store_items_keys.length; i++){
-        localStorage.setItem("collection-"+store_items_keys[i], store_items[store_items_keys[i]][2]);
+    // localStorage.setItem("collection-coins", coins);
+    // localStorage.setItem("collection-creatures", creatures_caught);
+    // // localStorage.setItem("collection-clothes", wearing_clothes);
+    // for (let i = 0; i < store_items_keys.length; i++){
+    //     localStorage.setItem("collection-"+store_items_keys[i], store_items[store_items_keys[i]][2]);
+    // }
+
+    // for (let i = 0; i < sky_clothes_info_keys.length; i++){
+    //     localStorage.setItem("collection-"+sky_clothes_info_keys[i], sky_clothes_info[sky_clothes_info_keys[i]][2]);
+    // }
+
+    // for (let i = 0; i < all_creatures.length; i++){
+    //     localStorage.setItem("collection-"+all_creatures[i], creatures_discovered[all_creatures[i]]);
+    // }
+
+    save_text = "";
+
+    save_text += player_map_pos.x.toString();
+    save_text += ",";
+    save_text += player_map_pos.y.toString();
+    
+    save_text += "|";
+    save_text += coins.toString();
+
+    save_text += "|";
+    save_text += creatures_caught[0];
+    for (let i = 1; i < creatures_caught.length; i++){
+        save_text += ",";
+        save_text += creatures_caught[i];
     }
 
-    for (let i = 0; i < sky_clothes_info_keys.length; i++){
-        localStorage.setItem("collection-"+sky_clothes_info_keys[i], sky_clothes_info[sky_clothes_info_keys[i]][2]);
-    }
-
+    save_text += "|";
+    temp = false;
     for (let i = 0; i < all_creatures.length; i++){
-        localStorage.setItem("collection-"+all_creatures[i], creatures_discovered[all_creatures[i]]);
+        if (creatures_discovered[all_creatures[i]]){   
+            if (temp){
+                save_text += ",";
+            }
+            save_text += all_creatures[i];
+            temp = true;
+        }
     }
+
+    save_text += "|";
+    save_text += music_on.toString();
+    save_text += "|";
+    save_text += sound_on.toString();
+
+    save_text += "|";
+    temp = false;
+    for (let i = 0; i < Object.keys(store_items).length; i++){
+        if (store_items[Object.keys(store_items)[i]][2]){   
+            if (temp){
+                save_text += ",";
+            }
+            save_text += Object.keys(store_items)[i];
+            temp = true;
+        }
+    }
+
+    save_text += "|";
+    temp = false;
+    for (let i = 0; i < Object.keys(sky_clothes_info).length; i++){
+        if (sky_clothes_info[Object.keys(sky_clothes_info)[i]][2]){   
+            if (temp){
+                save_text += ",";
+            }
+            save_text += Object.keys(sky_clothes_info)[i];
+            temp = true;
+        }
+    }
+
+
+    localStorage.setItem("collection_save", save_text);
+    save_text = "";
 
     // draw buttons
     ctx.fillStyle = "#EEF";
