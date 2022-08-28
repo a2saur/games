@@ -138,6 +138,15 @@ const root = "./Images/collection/"
 const charImg = new Image();
 charImg.src = root+"main-char.png";
 
+const charAdventure1Img = new Image();
+charAdventure1Img.src = root+"char-adventure-walk-1.png";
+const charAdventure2Img = new Image();
+charAdventure2Img.src = root+"char-adventure-walk-2.png";
+const charAdventure3Img = new Image();
+charAdventure3Img.src = root+"char-adventure-walk-3.png";
+const charAdventure4Img = new Image();
+charAdventure4Img.src = root+"char-adventure-walk-4.png";
+
 const water1Img = new Image();
 water1Img.src = root+"water-1.png";
 const water2Img = new Image();
@@ -441,7 +450,7 @@ const chordSND = document.createElement("audio");
 chordSND.src = "./Sounds/collection/mellow_chord.mp3";
 
 const melodySND = document.createElement("audio");
-melodySND.src = "./Sounds/collection/shop_music.mp3";
+melodySND.src = "./Sounds/collection/shop_music_2.mp3";
 
 
 // *****
@@ -483,7 +492,8 @@ const cCAVE_MAP = [[[23,17],
                 [' ', ' ', ' ', 'x', 'x', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'x', ' ', ' ', ' ', 'x', 'x', 'x', ' ', ' ', ' ', ' ', ' ', ' ', 'x', ' ', 'x', 'x', 'x', 'x', 'x', 'x', 'x', ' ', 'x', ' ', 'x', 'x', ' ', ' '], 
                 [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'x', ' ', 'x', ' ', 'x', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'x', ' ', ' ', ' ', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', ' ', 'x', 'x', 'x', 'x'], 
                 [' ', ' ', ' ', ' ', ' ', ' ', ' ', 'x', 'x', ' ', 'x', 'x', 'x', 'x', 'x', ' ', 'x', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'], 
-                ['x', 'x', ' ', 'x', 'x', 'x', ' ', 'x', ' ', 'x', ' ', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', ' ', 'x', 'x', 'x', 'x', 'x', ' ', 'x', ' ', 'x', ' ', 'x', 'x', 'x', ' ', 'x', ' ', 'x', 'x', 'x', ' ', 'x', ' ', 'x', ' ', 'x', ' ', 'x', ' ', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'], 
+                ['x', 'x', ' ', 'x', 'x', 'x', ' ', 'x', ' ', 'x', ' ', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', ' ', 'x', 'x', 'x', 'x', 'x', ' ', 'x', ' ', 'x', ' ', 'x', 'x', 'x', ' ', 'x', ' ', 'x', 'x', 'x', ' '], 
+                ['x', ' ', 'x', ' ', 'x', ' ', 'x', ' ', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'], 
                 ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x']]]
 ]
 
@@ -660,9 +670,9 @@ class Sprite {
         this.vy += dvy;
     }
 
-    fluid_update(frames, fx=-5, g=0){
+    fluid_update(frames, fx=-5, g=0, offsetX=0, offsetY=0){ 
         if (this.frame_wait == 0) {
-            ctx.drawImage(this.images[this.current_frame], this.x, this.y);
+            ctx.drawImage(this.images[this.current_frame], this.x+offsetX, this.y+offsetY);
         } else {
             if (frames%this.frame_wait == 0){
                 this.current_frame++;
@@ -692,6 +702,44 @@ class Sprite {
             } else {
                 this.vy += g;
             }
+        }
+    }
+}
+
+class Animated_Sprite {
+    constructor(image_sets, frame_wait, x, y){
+        this.image_sets = image_sets;
+        this.x = x;
+        this.y = y;
+        this.frame_wait = frame_wait;
+        this.frame = 0;
+        this.animation = Object.keys(image_sets)[0];
+    }
+
+    draw(frames, offsetX=0, offsetY=0){
+        if (frames % this.frame_wait == 0){
+            this.frame++;
+            if (this.frame >= this.image_sets[this.animation].length){
+                this.frame = 0;
+            }
+        }
+        ctx.drawImage(this.image_sets[this.animation][this.frame], this.x+offsetX, this.y+offsetY);
+    }
+
+    collides_with(sprite2){
+        // if (this.x+parseInt(this.image_sets[this.animation][this.frame].width/2) < sprite2.x+sprite2.images[0].width && this.x+parseInt(sprite2.images[0].width/2) > sprite2.x-sprite2.images[0].width){
+        //     if (this.y+parseInt(this.image_sets[this.animation][this.frame].height/2) < sprite2.y+sprite2.images[0].height && this.y+parseInt(this.images[0].height/2) > sprite2.y-sprite2.images[0].height){
+        //         return true;
+        //     }
+        // }
+
+        if (this.x >= (sprite2.x+sprite2.images[0].width) || 
+            this.y >= (sprite2.y-sprite2.images[0].height) ||
+            (this.x+this.image_sets[this.animation][this.frame].width) <= sprite2.x || 
+            (this.y-this.image_sets[this.animation][this.frame].height) <= sprite2.y){
+            // no overlap
+        } else {
+            return true;
         }
     }
 }
@@ -795,7 +843,7 @@ let shop_animation_idx;
 let shop_selection = "unselected";
 let shop_selection_idx = 0;
 let shop_options = ["Goodbye", "Who are you?", "I wanna sell!", "What do you have in stock?"];
-let shop_conversation = ["I am the shop keeper, Kotu.", "Any creatures you find, I will buy.", "Currently, we are only selling the snorkel."]
+let shop_conversation = ["I am the shop keeper, Kotu.", "Any creatures you find, I will buy."]
 let shop_page = 0;
 let temp_info;
 let temp_idx;
@@ -855,10 +903,7 @@ let mouse_pos = {
 let keyCode = -1;
 
 let current_cave_idx = 0;
-let player_cave_pos = {
-    x:0,
-    y:0,
-}
+let player_cave = new Animated_Sprite({"walk":[charAdventure1Img, charAdventure2Img, charAdventure3Img, charAdventure4Img]}, 2, 0, 0);
 
 let sound_start = 0;
 let sound_on = true;
@@ -916,40 +961,6 @@ if (sound_on){
 }
 buttons.push(sound_button);
 
-// if (localStorage.getItem("collection-coins") != null && localStorage.getItem("collection-coins") != "null"){
-//     coins = parseInt(localStorage.getItem("collection-coins"));
-// }
-// if (localStorage.getItem("collection-creatures") != null && localStorage.getItem("collection-creatures") != "null"){
-//     creatures_caught = localStorage.getItem("collection-creatures").split(",");
-// }
-// // if (localStorage.getItem("collection-clothes") != null && localStorage.getItem("collection-clothes") != "null"){
-// //     wearing_clothes = localStorage.getItem("collection-clothes").split(",");
-// // }
-
-// for (let i = 0; i < store_items_keys.length; i++){
-//     if (localStorage.getItem("collection-"+store_items_keys[i]) != null && localStorage.getItem("collection-"+store_items_keys[i]) != "null" && localStorage.getItem("collection-"+store_items_keys[i]) != undefined){
-//         store_items[store_items_keys[i]][2] = str_bool(localStorage.getItem("collection-"+store_items_keys[i]));
-//         if (store_items[store_items_keys[i]][2]){
-//             store_items_keys = remove_item(store_items_keys, store_items_keys[i]);
-//         }
-//     }
-// }
-
-// for (let i = 0; i < sky_clothes_info_keys.length; i++){
-//     if (localStorage.getItem("collection-"+sky_clothes_info_keys[i]) != null && localStorage.getItem("collection-"+sky_clothes_info_keys[i]) != "null" && localStorage.getItem("collection-"+sky_clothes_info_keys[i]) != undefined){
-//         sky_clothes_info[sky_clothes_info_keys[i]][2] = str_bool(localStorage.getItem("collection-"+sky_clothes_info_keys[i]));
-//         if (sky_clothes_info[sky_clothes_info_keys[i]][2]){
-//             sky_clothes_info_keys = remove_item(sky_clothes_info_keys, sky_clothes_info_keys[i]);
-//         }
-//     }
-// }
-
-// for (let i = 0; i < all_creatures.length; i++){
-//     if (localStorage.getItem("collection-"+all_creatures[i]) != null && localStorage.getItem("collection-"+all_creatures[i]) != "null" && localStorage.getItem("collection-"+all_creatures[i]) != undefined){
-//         creatures_discovered[all_creatures[i]] = str_bool(localStorage.getItem("collection-"+all_creatures[i]));
-//     }
-// }
-
 // add town sprites
 for (let i=0; i < town_locs.length; i++) {
     temp_town = new Sprite([town1Img, town2Img, town3Img, town4Img], 1, ((town_locs[i][1][0]*32)-(player_map_pos.x*32))+128, ((town_locs[i][1][1]*32)-(player_map_pos.y*32))+128, undefined, town_locs[i][0]);
@@ -964,8 +975,10 @@ for (let c=0; c < cCAVE_MAP.length; c++){
         cCAVE_MAP[c][2].push([])
         for (let x=0; x < cCAVE_MAP[c][1][0].length; x++){
             if (cCAVE_MAP[c][1][y][x] != " "){
-                block = new Sprite([caveBlockImage], 0, (x*32), (y*32));
-                cCAVE_MAP[c][2][y].push(block);
+                if (cCAVE_MAP[c][1][y][x] == "x"){
+                    block = new Sprite([caveBlockImage], 0, (x*32), (y*32));
+                    cCAVE_MAP[c][2][y].push(block);
+                }
             }
         }
     }
@@ -1679,13 +1692,69 @@ function draw(){
                 shop_selection_idx = 0;
             }
         } else if (current_scene == "cave"){
-            // WIP
+            // if (keyCode == 38 || up_button.is_down()){
+            //     // up
+            //     player_cave.y += 10;
+            // } if (keyCode == 40 || down_button.is_down()){
+            //     // down
+            //     player_cave.y -= 10;
+            // } if (keyCode == 37 || left_button.is_down()){
+            //     // left
+            //     player_cave.x -= 10;
+            // } if (keyCode == 39 || right_button.is_down()){
+            //     // right
+            //     player_cave.x += 10;
+            // }
+            
+            // for (let y=0; y < cCAVE_MAP[current_cave_idx][2].length; y++){
+            //     for (let x=0; x < cCAVE_MAP[current_cave_idx][2][y].length; x++){
+            //         if (player_cave.collides_with(cCAVE_MAP[current_cave_idx][2][y][x])){
+            //             document.write("A")
+            //             if (keyCode == 38 || up_button.is_down()){
+            //                 // up
+            //                 player_cave.y -= 10;
+            //             } if (keyCode == 40 || down_button.is_down()){
+            //                 // down
+            //                 player_cave.y += 10;
+            //             } if (keyCode == 37 || left_button.is_down()){
+            //                 // left
+            //                 player_cave.x += 10;
+            //             } if (keyCode == 39 || right_button.is_down()){
+            //                 // right
+            //                 player_cave.x -= 10;
+            //             }
+            //         }
+            //     }
+            // }
+            temp = true;
+            for (let y=0; y < cCAVE_MAP[current_cave_idx][2].length; y++){
+                for (let x=0; x < cCAVE_MAP[current_cave_idx][2][y].length; x++){
+                    if (player_cave.collides_with(cCAVE_MAP[current_cave_idx][2][y][x])){
+                        temp = false;
+                        document.write("A");
+                    }
+                }
+            }
+            if (temp) {
+                if (keyCode == 38 || up_button.is_down()){
+                    // up
+                    player_cave.y += 10;
+                } if (keyCode == 40 || down_button.is_down()){
+                    // down
+                    player_cave.y -= 10;
+                } if (keyCode == 37 || left_button.is_down()){
+                    // left
+                    player_cave.x -= 10;
+                } if (keyCode == 39 || right_button.is_down()){
+                    // right
+                    player_cave.x += 10;
+                }
+            }
         }
        
         if (keyCode == 82 || reset_button.is_down()){
             // r - remove save
             // WIP - OPTION TO CHANGE MAP (KEEP COINS ETC)
-            // WIP - "ARE YOU SURE YOU WANT TO RESET"
             if (confirm("Are you sure you want to reset your coins and stash?")){
                 localStorage.setItem("collection_save", "");
                 clearInterval(game);
@@ -1929,11 +1998,12 @@ function draw(){
             if (cCAVE_MAP[i][0][0] == player_map_pos.x && cCAVE_MAP[i][0][1] == player_map_pos.y) {
                 current_cave_idx = i;
                 current_scene = "cave";
-                player_cave_pos = {
-                    x:0,
-                    y:2
+                player_cave.x = 0;
+                for (let y = 0; y < cCAVE_MAP[i][1].length; y++){
+                    if (cCAVE_MAP[i][1][y][0] == ' '){
+                        player_cave.y = -1*(y*32);
+                    }
                 }
-                
             }
         }
         // WIP
@@ -1987,7 +2057,7 @@ function draw(){
         ctx.fillText("Items: "+creatures_caught.length.toString(), 140, 310);
         ctx.fillText("$: "+coins.toString(), 210, 310);
     } else if (current_scene == "shop"){
-        if ((frames-(sound_start+1)) % 420 == 0){
+        if ((frames-(sound_start+1)) % 450 == 0){
             // 400 frame wait
             if (music_on) {
                 melodySND.currentTime = 0;
@@ -2295,32 +2365,26 @@ function draw(){
 
     } else if (current_scene == "cave"){
         ctx.fillStyle = "#EEF";
-        ctx.fillRect(0, 0, 288, 288);
-        
+        ctx.fillRect(0, 0, 288, 320);
         for (let y=0; y < cCAVE_MAP[current_cave_idx][2].length; y++){
-            for (let x=0; x < cCAVE_MAP[current_cave_idx][2][0].length; x++){
-                cCAVE_MAP[current_cave_idx][2][y][x].fluid_update(frames, 0, 0);
+            for (let x=0; x < cCAVE_MAP[current_cave_idx][2][y].length; x++){
+                cCAVE_MAP[current_cave_idx][2][y][x].fluid_update(frames, 0, 0, -player_cave.x+100, player_cave.y+256);
             }
         }
+        
+        player_cave.draw(frames, -player_cave.x+100, -player_cave.y+256);
+
+        if (player_cave.x < 0 || player_cave.x > (cCAVE_MAP[current_cave_idx][1][0].length*32)){
+            current_scene = "main";
+            player_map_pos.y--;
+        }
+
+        ctx.font = "15px Arial";
+        ctx.fillStyle = "#000";
+        ctx.fillText("Coords: "+player_cave.x.toString()+", "+player_cave.y.toString(), 140, 310);
     }
 
     // SAVE - coins, creatures, items
-    // OPTIONAL SAVE - map, position
-    // localStorage.setItem("collection-coins", coins);
-    // localStorage.setItem("collection-creatures", creatures_caught);
-    // // localStorage.setItem("collection-clothes", wearing_clothes);
-    // for (let i = 0; i < store_items_keys.length; i++){
-    //     localStorage.setItem("collection-"+store_items_keys[i], store_items[store_items_keys[i]][2]);
-    // }
-
-    // for (let i = 0; i < sky_clothes_info_keys.length; i++){
-    //     localStorage.setItem("collection-"+sky_clothes_info_keys[i], sky_clothes_info[sky_clothes_info_keys[i]][2]);
-    // }
-
-    // for (let i = 0; i < all_creatures.length; i++){
-    //     localStorage.setItem("collection-"+all_creatures[i], creatures_discovered[all_creatures[i]]);
-    // }
-
     save_text = "";
 
     save_text += player_map_pos.x.toString();

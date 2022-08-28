@@ -45,3 +45,9 @@ Turnip,G,0.0005,250,Rofa,turnip-,51,1,This creature looks like a turnip
 Firefly,GWBM,0.0003,500,Flowerfly,firefly-,13,2,This is a shiny firefly that carries a flower to relax and nap on
 Shell Cat,B,0.001,100,Skottu,shell-cat-,4,3,This cat wears a shell on its head and splashes water on itself to keep cool and not sunburned while looking for crabs and other food
 Wing Pig,GM,0.0003,500,Venvin,wing-pig-,2,5,This pig has winged ears and tail
+Chesnut Fish,W,0.001,100,Kasfi,kasfi-,10,2.5,A squid that carries a chesnut on it's head for protection
+Pointed Seal,W,0.0003,500,Selpun,selpun-,2,2,A blue seal that has horns
+Cuttlefish Swan,GW,0.001,100,Cisepia,cisepia-,3,1,This swan can change colors to hide and confuse
+Grain Potato,G,0.0005,250,Korntof,korntof-,2,2.5,A very carbfull plant
+Invisible Lizard,GM,0.0001,1000,Osynila,osynila-,28,1,A lizard that can become invisible
+Plant Whale,G,0.0003,500,Plantal,plantal-,4,2,A land whale that carries plants on it
