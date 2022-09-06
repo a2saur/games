@@ -106,6 +106,18 @@ for x in range(map.shape[0]):
     if selected == False:
       text_map[x,y] = "G"
 
+# add starting land
+for x in range(20):
+    for y in range(20):
+        if x < 5 and y < 5:
+            text_map[x,y] = "M"
+        elif x < 10 and y < 10:
+            text_map[x,y] = "G"
+        elif x < 15 and y < 15:
+            text_map[x,y] = "B"
+        else:
+            text_map[x,y] = "W"
+
 print("Created text map")
 # print(text_map)
 
@@ -349,7 +361,7 @@ town_str += "\nlet town_locs = ["
 
 for i in range(int(cNUM_TOWNS/2)):
     while True:
-        random_loc = [random.randrange(cWIDTH), random.randrange(cHEIGHT)]
+        random_loc = [random.randrange(20, cWIDTH), random.randrange(20, cHEIGHT)] # 40 for start buffer
         if text_map[random_loc[1], random_loc[0]] != "W":
             break
     houses = []
@@ -398,6 +410,31 @@ for i in range(int(cNUM_TOWNS/2)):
     town_str += ","
     town_str += str(houses)
     town_str += ", false],"
+
+
+
+random_loc = [7, 7]
+houses = []
+selected_town = random.choice(town_setups)
+town_nums = []
+for x in range(len(selected_town)):
+    town_nums.append([])
+    for y in range(len(selected_town[x])):
+        town_nums[x].append(random.randrange(num_skins[selected_town[x][y]]))
+        if selected_town[x][y] == "H":
+            random_person = random.choice(list(all_person_info.keys()))
+            houses.append([random_person, [x, y]])
+town_str += "[\""
+town_str += create_name()
+town_str += "\","
+town_str += str(random_loc)
+town_str += ","
+town_str += str(selected_town)
+town_str += ","
+town_str += str(town_nums)
+town_str += ","
+town_str += str(houses)
+town_str += ", false],"
 
 town_str += "]"
 
