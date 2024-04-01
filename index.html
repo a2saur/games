@@ -1,110 +1,122 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
-    <title>Games</title>
-</head>
-    <body>
-        <header>
-            <h1>Games</h1>
-        </header>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Unity WebGL Player | Field of Geese</title>
+    <link rel="shortcut icon" href="TemplateData/favicon.ico">
+    <link rel="stylesheet" href="TemplateData/style.css">
+  </head>
+  <body>
+    <div id="unity-container" class="unity-desktop">
+      <canvas id="unity-canvas" width=960 height=600 tabindex="-1"></canvas>
+      <div id="unity-loading-bar">
+        <div id="unity-logo"></div>
+        <div id="unity-progress-bar-empty">
+          <div id="unity-progress-bar-full"></div>
+        </div>
+      </div>
+      <div id="unity-warning"> </div>
+      <div id="unity-footer">
+        <div id="unity-webgl-logo"></div>
+        <div id="unity-fullscreen-button"></div>
+        <div id="unity-build-title">Field of Geese</div>
+      </div>
+    </div>
+    <script>
 
-        <nav>
-            <div class="dropdown">
-                <div class="dropbtn">Home</div>
-                <div class="dropdown-content">
-                    <a href="index.html">Home and Explanation</a>
-                    <a href="index2.html">Home with Cards</a>
-                </div>
-            </div>
-            <div class="dropdown">
-                <div class="dropbtn">Complete</div>
-                <div class="dropdown-content">
-                    <a href="geese.html">Field of Geese</a>
-                    <a href="goose2.html">A Goose's Field</a>
-                    <a href="collection.html">Collection Game</a>
-                    <a href="penguin.html">Penguin Poopers</a>
-                </div>
-            </div>
-            <div class="dropdown">
-                <div class="dropbtn">Work In Progress</div>
-                <div class="dropdown-content">
-                    <a href="gravity.html">Gravity</a>
-                    <a href="platformer.html">Platformer</a>
-                    <a href="platform_adventure.html">Platformer Adventure</a>
-                    <a href="cooking.html">Cooking</a>
-                </div>
-            </div>
-            <div class="dropdown">
-                <div class="dropbtn">Physics</div>
-                <div class="dropdown-content">
-                    <a href="cannon.html">Cannon Shooter</a>
-                    <a href="solar_system.html">Solar System</a>
-                    <a href="solar_system2.html">Solar System #2</a>
-                    <a href="momentum.html">Momentum</a>
-                    <a href="friction.html">Friction</a>
-                </div>
-            </div>
-            <div class="dropdown">
-                <div class="dropbtn">About The Creator</div>
-                <div class="dropdown-content">
-                    <a href="https://a2saur.github.io/about_me/index.html">About The Creator</a>
-                    <a href="https://a2saur.github.io/about_me/index2.html">About The Creator (Professional Version)</a>
-                </div>
-            </div>
-        </nav>
+      var container = document.querySelector("#unity-container");
+      var canvas = document.querySelector("#unity-canvas");
+      var loadingBar = document.querySelector("#unity-loading-bar");
+      var progressBarFull = document.querySelector("#unity-progress-bar-full");
+      var fullscreenButton = document.querySelector("#unity-fullscreen-button");
+      var warningBanner = document.querySelector("#unity-warning");
 
-        <main>
-            <p>Welcome to A2 Games!<br>
-            Please enjoy!</p>
-            <p>
-                This is my website of games! <br> 
-                There are 3 groupings of games; Completed, Work in Progress, and Physics <br>
-                Some of the Work in Progress games don't work, so they wouldn't be fun games to play. <br>
-                The Physics category contains physics simulators. You can play around with them, but they aren't as polished. <br>
-                Finally, the Completed category contains completed games that you can play, although they may get updated in the future. There are minigames and full games to play!<br>
-                <br><b><u>About the individual games</u></b><br>
-                <br><b>Field of Geese</b><br>
-                In a field full of geese, how far can you get?<br>
-                In this minigame, dodge geese for as long as you can!<br>
-                <i>-----Keys-----</i><br>
-                Use the <b>up</b>, <b>down</b>, <b>left</b>, and <b>right</b> keys to move around.<br>
-                Pressing a key starts moving in that direction stops it (ex: press up to start going up and down to stop going up)<br>
-                <br>
+      // Shows a temporary message banner/ribbon for a few seconds, or
+      // a permanent error message on top of the canvas if type=='error'.
+      // If type=='warning', a yellow highlight color is used.
+      // Modify or remove this function to customize the visually presented
+      // way that non-critical warnings and error messages are presented to the
+      // user.
+      function unityShowBanner(msg, type) {
+        function updateBannerVisibility() {
+          warningBanner.style.display = warningBanner.children.length ? 'block' : 'none';
+        }
+        var div = document.createElement('div');
+        div.innerHTML = msg;
+        warningBanner.appendChild(div);
+        if (type == 'error') div.style = 'background: red; padding: 10px;';
+        else {
+          if (type == 'warning') div.style = 'background: yellow; padding: 10px;';
+          setTimeout(function() {
+            warningBanner.removeChild(div);
+            updateBannerVisibility();
+          }, 5000);
+        }
+        updateBannerVisibility();
+      }
 
-                <br><b>A Goose's Field</b><br>
-                The sequel to Field of Geese, this minigame uses the same keys to move around.<br>
-                However, this time you're... a goose?<br>
-                Try to catch the children (they will run away if you get too close!) and maybe they'll drop some good food...<br>
-                <i>-----Keys-----</i><br>
-                Use the <b>up</b>, <b>down</b>, <b>left</b>, and <b>right</b> keys to move around.<br>
-                Pressing a key starts moving in that direction stops it (ex: press up to start going up and down to stop going up)<br>
-                <br>
-                
-                <br><b>Collection Game</b><br>
-                In this game, you can explore the area and find various creatures!<br>
-                There are 4 types of land: Mountain, Grass, Beach, and Water<br>
-                You can find various towns in the game, and talk to the villagers as well as sell items in the shop.<br>
-                <b>Note:</b> This game takes place on a randomly generated map! (Pretty cool right?)<br>
-                <i>-----Keys-----</i><br>
-                Use the <b>up</b>, <b>down</b>, <b>left</b>, and <b>right</b> keys to move around.<br>
-                Use the <b>space</b> key to select something (to talk to a villager or select an option) and the <b>enter</b> key to finish selling items in the shop<br>
-                <br>
-                
-                <br><b>Penguin Poopers</b><br>
-                Uh oh, these penguins keep pooping!<br>
-                In this minigame, try to keep your side clean by turning the penguins when there about to poo!<br>
-                The more times your side gets hit, the more dirty it gets!<br>
-                <b>Note:</b> There is no end to the game, so play as long as you'd like!<br>
-                <i>-----Keys-----</i><br>
-                <b>Player 1</b>: Use the <b>left</b>, and <b>right</b> keys to move around and <b>up</b> key to turn your penguin<br>
-                <b>Player 2</b>: Use the <b>a</b>, and <b>d</b> keys to move around and <b>w</b> key to turn your penguin<br>
-                <br>
+      var buildUrl = "Build";
+      var loaderUrl = buildUrl + "/Field of Geese Web.loader.js";
+      var config = {
+        dataUrl: buildUrl + "/Field of Geese Web.data.br",
+        frameworkUrl: buildUrl + "/Field of Geese Web.framework.js.br",
+        codeUrl: buildUrl + "/Field of Geese Web.wasm.br",
+        streamingAssetsUrl: "StreamingAssets",
+        companyName: "DefaultCompany",
+        productName: "Field of Geese",
+        productVersion: "1.0",
+        showBanner: unityShowBanner,
+      };
 
-            </p>
-        </main>
-    </body>
+      // By default Unity keeps WebGL canvas render target size matched with
+      // the DOM size of the canvas element (scaled by window.devicePixelRatio)
+      // Set this to false if you want to decouple this synchronization from
+      // happening inside the engine, and you would instead like to size up
+      // the canvas DOM size and WebGL render target sizes yourself.
+      // config.matchWebGLToCanvasSize = false;
+
+      if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
+        // Mobile device style: fill the whole browser client area with the game canvas:
+
+        var meta = document.createElement('meta');
+        meta.name = 'viewport';
+        meta.content = 'width=device-width, height=device-height, initial-scale=1.0, user-scalable=no, shrink-to-fit=yes';
+        document.getElementsByTagName('head')[0].appendChild(meta);
+        container.className = "unity-mobile";
+        canvas.className = "unity-mobile";
+
+        // To lower canvas resolution on mobile devices to gain some
+        // performance, uncomment the following line:
+        // config.devicePixelRatio = 1;
+
+
+      } else {
+        // Desktop style: Render the game canvas in a window that can be maximized to fullscreen:
+
+        canvas.style.width = "960px";
+        canvas.style.height = "600px";
+      }
+
+      loadingBar.style.display = "block";
+
+      var script = document.createElement("script");
+      script.src = loaderUrl;
+      script.onload = () => {
+        createUnityInstance(canvas, config, (progress) => {
+          progressBarFull.style.width = 100 * progress + "%";
+              }).then((unityInstance) => {
+                loadingBar.style.display = "none";
+                fullscreenButton.onclick = () => {
+                  unityInstance.SetFullscreen(1);
+                };
+              }).catch((message) => {
+                alert(message);
+              });
+            };
+
+      document.body.appendChild(script);
+
+    </script>
+  </body>
 </html>
