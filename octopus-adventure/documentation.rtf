@@ -1,0 +1,156 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2513
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\fswiss\fcharset0 Helvetica-Bold;}
+{\colortbl;\red255\green255\blue255;\red0\green0\blue255;\red0\green0\blue0;\red17\green130\blue2;
+\red0\green0\blue0;\red0\green0\blue255;}
+{\*\expandedcolortbl;;\cssrgb\c0\c0\c100000;\csgray\c0;\cssrgb\c0\c56802\c0;
+\csgray\c0;\cssrgb\c0\c0\c100000;}
+\margl1440\margr1440\vieww13180\viewh18000\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 SpriteNode(image, x (\cf2 int\cf0 ), y (\cf2 int\cf0 ))\
+	Variables\
+		showing (\cf2 boolean\cf0 ) - whether or not the Sprite should be showing\
+		image - the image to be displayed\
+		width (\cf2 int\cf0 ) - the width of the image\
+		height (\cf2 int\cf0 ) - the height of the image\
+		position (\cf2 dictionary\cf0 ) - contains x (\cf2 int\cf0 ; the x position) and y (\cf2 int\cf0 ; the y position)\
+	Functions\
+		draw()\
+			if the Sprite is showing, it will draw the Sprite to the screen\
+		hide()\
+			hides the Sprite\
+		collides_with(rect2 (\cf2 SpriteNode\cf3 )\
+			returns true if the SpriteNode collided with rect2\cf0 \
+\
+\
+Enemy(x (\cf2 int\cf0 ), y (\cf2 int\cf0 ), enemyType (\cf2 str\cf0 )) - EXTENSION OF \cf4 SPRITENODE\cf0 \
+	Variables\
+		\cf4 showing (boolean) - whether or not the Sprite should be showing\
+		image - the image to be displayed\
+		width (int) - the width of the image\
+		height (int) - the height of the image\
+		position (dictionary) - contains x (the x position) and y (the y position)\
+\cf0 		hp (\cf2 int\cf0 ) - the hp of the enemy\
+		attackPower (\cf2 int\cf0 ) - the attack power of the enemy\
+	Functions\
+		\cf4 draw()\
+			if the Sprite is showing, it will draw the Sprite to the screen\
+		hide()\
+			hides the Sprite
+\f1\b \cf0 \
+
+\f0\b0 		attacked(attackPwr (\cf2 int\cf0 ))\
+			drops the enemy\'92s hp by the attack Power (attackPwr)\
+			if the enemy\'92s hp is 0 or below 0, hides the enemy\
+\
+\
+\
+\cf3 Character(x (\cf2 int\cf3 ), y (\cf2 int\cf3 )) - EXTENSION OF \cf4 SPRITENODE\cf0 \
+	Variables\
+		\cf4 showing (boolean) - whether or not the Sprite should be showing\
+		image - the image to be displayed\
+		width (int) - the width of the image\
+		height (int) - the height of the image\
+		position (dictionary) - contains x (int; the x position) and y (int; the y position)\
+		\cf3 sp (\cf2 int\cf3 ) - shell points (used for special moves)\
+		hp (\cf2 int\cf3 ) - health points\
+		coins (\cf2 int\cf3 ) - number of coins (for spending)\
+		points (\cf2 int\cf3 ) - number of points (for leveling up)\
+		spMax (\cf2 int\cf3 ) - max sp\
+		hpMax (\cf2 int\cf3 ) - max hp\
+		items (\cf2 str\cf3  \cf2 list\cf3 ) - list of items in inventory\
+		jumping (\cf2 int\cf3 ) - jumping duration (how much is left)\
+		going_up (\cf2 boolean\cf3 ) - whether the character is going up or down\
+		def (\cf2 int\cf3 ) - defense\
+		\cf4 \
+\cf0 	Functions\
+		\cf4 draw()\
+			if the Sprite is showing, it will draw the Sprite to the screen\
+		hide()\
+			hides the Sprite\
+\cf3 		attacked(attackPwr (\cf2 int\cf3 ))\
+			drops the character\'92s hp by attackPwr\
+			if hp is less than or equal to 0, then displays game over\
+		refresh()\
+			sets the hp and the sp to their max\
+		level_up(choice (\cf2 str\cf3 ))\
+			levels up the attribute of based on choice (sp or hp)\
+		move_normal(direction (\cf2 str\cf3 ))\
+			moves the character left or right based on direction (but doesn\'92t move off screen)\
+		move_off_screen(direction (\cf2 str\cf3 ))\
+			moves the character regardless of if it\'92s going off screen\
+		move_off_right(direction(\cf2 str\cf3 ))\
+			moves the character (can go offscreen right side)\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+\cf5 		move_off_left(direction(\cf2 str\cf5 ))\
+			moves the character (can go offscreen left side)\
+\
+\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+\cf3 \
+Text(lines (\cf2 str\cf3  \cf2 list\cf3 ))\
+	Variables\
+		lines (\cf2 str\cf3  \cf2 list\cf3 ) - list of lines\
+		lineIdx (\cf2 int\cf3 ) - whatever line it\'92s on\
+		showing (\cf2 boolean\cf3 ) - whether or not the text is showing\
+	\
+	Functions\
+		draw(direction (\cf2 str\cf3 ))\
+			draws the Text to screen\
+\
+		isShowing()\
+			returns whether or not the text is showing\
+\
+Choice(choices (\cf2 str\cf3  \cf2 list\cf3 ), choicesTitle(\cf2 str\cf3 ))\cf2 \
+\cf3 	Variables\
+		choicesTitle (\cf2 str\cf3 ) - the title of the choices/the question being asked\
+		choices (\cf2 str list\cf3 ) - list of choices\
+		showing (\cf2 boolean\cf3 ) - whether or not the text is showing\
+		selectionIndex\cf5  (\cf6 int\cf5 ) - whatever the current choice selection is\cf3 \
+		choice (\cf2 str\cf3 ) - the choice that is selected\
+\
+	Functions\
+		draw(direction (\cf2 str\cf3 ))\
+			draws the text to screen\
+		final_decision()\
+			if a choice has been selected, then return the choice\
+			otherwise, return false\
+		\cf5 final_index()\
+			if a choice has been selected, then return the choice index\
+			otherwise, return false\cf3 \
+\
+\
+\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+\cf5 \'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\
+\
+Fight(enemies (\cf2 str list\cf3 )\cf5 )\
+	Variables\
+		enemies (\cf2 str list\cf3 ) \cf5 - list of enemy names\
+		part (\cf2 str\cf3 ) - whatever part it\'92s on \'97 \'93Enemy,\'94 \'93Player,\'94 \'93Items,\'94 \'93Punch,\'94 \'93Throw\'94\
+		first (\cf2 boolean\cf3 ) - is it the first time this part is on?\
+		text (\cf2 Text\cf3 ) - the text on screen\
+		choice (\cf2 str\cf3 ) - the choice selected\
+		enemyIdx (\cf2 int\cf3 ) - enemy index\
+		enemiesObjects (\cf2 Enemy list\cf3 ) - list of enemies (objects)\
+		def_up (\cf2 boolean\cf3 ) - whether or not the defense is up (like with a coconut)\
+		done (\cf2 boolean\cf3 ) - whether or not the fight is over\
+		notice (\cf2 Text\cf3 ) - notices\
+\
+\
+\cf5 \'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\
+\
+Parts\
+\'931\'94 = part 1 w/ story (dumbo octopus)\
+\'931 done\'94 = part 1 w/out story (just home)\
+\'93fight 1\'94 = fight w/ fish and fish\
+\'93matching\'94 = matching game\
+\
+\
+\
+\
+\
+\
+\
+\
+}
